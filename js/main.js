@@ -100,10 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* --- Google Review Popup Widget --- */
   (function() {
-    // Show once per day (24h cooldown stored in localStorage)
-    const COOLDOWN_MS = 24 * 60 * 60 * 1000;
-    const lastShown = localStorage.getItem('reviewPopupTime');
-    if (lastShown && (Date.now() - parseInt(lastShown, 10)) < COOLDOWN_MS) return;
 
     const reviews = [
       { name: 'Michael T.',  initial: 'M', color: '#4285F4', ago: '3 weeks ago',   text: 'Found a crack in my return line within 45 minutes. Two other companies had no idea. Fixed same day. Absolutely phenomenal.' },
@@ -158,7 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
       clearTimeout(dismissTimer);
       popup.classList.add('hide');
       popup.classList.remove('show');
-      localStorage.setItem('reviewPopupTime', Date.now().toString());
       setTimeout(() => { if (popup.parentNode) popup.parentNode.removeChild(popup); }, 400);
     }
 
