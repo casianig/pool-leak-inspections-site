@@ -10,6 +10,45 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .followup-group {
+      background: #f0f7ff;
+      border: 1.5px solid #bfdbfe;
+      border-radius: var(--radius);
+      padding: 18px 20px 20px;
+      margin-bottom: 4px;
+      animation: slideDown 0.25s ease;
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .followup-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 14px;
+    }
+    .followup-header svg { flex-shrink: 0; stroke: var(--blue); }
+    .followup-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 560px) { .followup-grid { grid-template-columns: 1fr; } }
+    .followup-group .form-group { margin-bottom: 0; }
+    .followup-group label { font-size: 0.8rem; }
+    .followup-group select {
+      font-size: 0.88rem;
+      padding: 9px 12px;
+      background-color: var(--white);
+    }
+  </style>
 </head>
 <body>
 
@@ -271,14 +310,287 @@
                 <label for="service">Service Needed</label>
                 <select id="service" name="service">
                   <option value="">Select a service...</option>
-                  <option>Pool Leak Detection ($195)</option>
-                  <option>Spa Leak Detection ($225)</option>
-                  <option>Pool &amp; Spa Leak Detection ($250)</option>
-                  <option>Pool Repair</option>
-                  <option>Pre-Sale / Pre-Purchase Inspection</option>
-                  <option>Not Sure — Need Advice</option>
+                  <option value="pool">Pool Leak Detection ($195)</option>
+                  <option value="spa">Spa Leak Detection ($225)</option>
+                  <option value="pool-spa">Pool &amp; Spa Leak Detection ($250)</option>
+                  <option value="repair">Pool Repair</option>
+                  <option value="prepurchase">Pre-Sale / Pre-Purchase Inspection</option>
+                  <option value="advice">Not Sure — Need Advice</option>
                 </select>
               </div>
+
+              <!-- Dynamic follow-up questions (shown based on service selected) -->
+              <div id="followup-pool" class="followup-group" style="display:none;">
+                <div class="followup-header">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                  A few quick questions to help us prepare
+                </div>
+                <div class="followup-grid">
+                  <div class="form-group">
+                    <label for="pool-type">Pool Type</label>
+                    <select id="pool-type" name="pool_type">
+                      <option value="">Select...</option>
+                      <option>Concrete / Gunite</option>
+                      <option>Vinyl Liner</option>
+                      <option>Fiberglass</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="pool-age">Pool Age</label>
+                    <select id="pool-age" name="pool_age">
+                      <option value="">Select...</option>
+                      <option>Under 5 years</option>
+                      <option>5–15 years</option>
+                      <option>15–25 years</option>
+                      <option>25+ years</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="water-loss">Estimated Daily Water Loss</label>
+                    <select id="water-loss" name="water_loss">
+                      <option value="">Select...</option>
+                      <option>Less than ¼ inch</option>
+                      <option>¼ – ½ inch</option>
+                      <option>½ – 1 inch</option>
+                      <option>More than 1 inch</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="symptoms">Main Symptom</label>
+                    <select id="symptoms" name="main_symptom">
+                      <option value="">Select...</option>
+                      <option>Water level dropping</option>
+                      <option>High water bill</option>
+                      <option>Wet / soggy ground near pool</option>
+                      <option>Pump losing prime / air in system</option>
+                      <option>Visible crack or damage</option>
+                      <option>Multiple symptoms</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div id="followup-spa" class="followup-group" style="display:none;">
+                <div class="followup-header">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                  A few quick questions about your spa
+                </div>
+                <div class="followup-grid">
+                  <div class="form-group">
+                    <label for="spa-type">Spa Type</label>
+                    <select id="spa-type" name="spa_type">
+                      <option value="">Select...</option>
+                      <option>Attached to pool</option>
+                      <option>Freestanding / standalone</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="spa-age">Spa Age</label>
+                    <select id="spa-age" name="spa_age">
+                      <option value="">Select...</option>
+                      <option>Under 5 years</option>
+                      <option>5–15 years</option>
+                      <option>15+ years</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="spa-loss">How quickly is water dropping?</label>
+                    <select id="spa-loss" name="spa_water_loss">
+                      <option value="">Select...</option>
+                      <option>Slowly (days to notice)</option>
+                      <option>Quickly (noticeably daily)</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="spa-jets">Jets / Equipment Working?</label>
+                    <select id="spa-jets" name="spa_equipment">
+                      <option value="">Select...</option>
+                      <option>Yes, all working normally</option>
+                      <option>Pump losing prime / air bubbles</option>
+                      <option>Jets not working properly</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div id="followup-pool-spa" class="followup-group" style="display:none;">
+                <div class="followup-header">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                  Tell us a bit about your setup
+                </div>
+                <div class="followup-grid">
+                  <div class="form-group">
+                    <label for="combo-pool-type">Pool Type</label>
+                    <select id="combo-pool-type" name="pool_type">
+                      <option value="">Select...</option>
+                      <option>Concrete / Gunite</option>
+                      <option>Vinyl Liner</option>
+                      <option>Fiberglass</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="combo-spa-type">Spa Type</label>
+                    <select id="combo-spa-type" name="spa_type">
+                      <option value="">Select...</option>
+                      <option>Attached to pool</option>
+                      <option>Freestanding / standalone</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="combo-age">Pool / Spa Age</label>
+                    <select id="combo-age" name="pool_age">
+                      <option value="">Select...</option>
+                      <option>Under 5 years</option>
+                      <option>5–15 years</option>
+                      <option>15–25 years</option>
+                      <option>25+ years</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="combo-loss">Estimated Daily Water Loss</label>
+                    <select id="combo-loss" name="water_loss">
+                      <option value="">Select...</option>
+                      <option>Less than ¼ inch</option>
+                      <option>¼ – ½ inch</option>
+                      <option>½ – 1 inch</option>
+                      <option>More than 1 inch</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div id="followup-repair" class="followup-group" style="display:none;">
+                <div class="followup-header">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                  Help us understand the repair needed
+                </div>
+                <div class="followup-grid">
+                  <div class="form-group">
+                    <label for="repair-type">Type of Repair</label>
+                    <select id="repair-type" name="repair_type">
+                      <option value="">Select...</option>
+                      <option>Not sure — needs diagnosis first</option>
+                      <option>Underground pipe repair</option>
+                      <option>Skimmer replacement</option>
+                      <option>Plaster / crack repair</option>
+                      <option>Pool light / fitting</option>
+                      <option>Equipment / pump issue</option>
+                      <option>Multiple repairs needed</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="repair-urgency">How Urgent?</label>
+                    <select id="repair-urgency" name="urgency">
+                      <option value="">Select...</option>
+                      <option>ASAP — significant water loss</option>
+                      <option>This week if possible</option>
+                      <option>Within the next 2–4 weeks</option>
+                      <option>No rush — planning ahead</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="repair-quote">Already Have a Quote?</label>
+                    <select id="repair-quote" name="existing_quote">
+                      <option value="">Select...</option>
+                      <option>No, looking for first quote</option>
+                      <option>Yes, want a second opinion</option>
+                      <option>Yes, and work was already done but failed</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div id="followup-prepurchase" class="followup-group" style="display:none;">
+                <div class="followup-header">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                  A few details about the property
+                </div>
+                <div class="followup-grid">
+                  <div class="form-group">
+                    <label for="pp-pool-age">Estimated Pool Age</label>
+                    <select id="pp-pool-age" name="pool_age">
+                      <option value="">Select...</option>
+                      <option>Unknown</option>
+                      <option>Under 5 years</option>
+                      <option>5–15 years</option>
+                      <option>15–25 years</option>
+                      <option>25+ years</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="pp-operational">Is the Pool Filled &amp; Operational?</label>
+                    <select id="pp-operational" name="pool_operational">
+                      <option value="">Select...</option>
+                      <option>Yes — full and running</option>
+                      <option>Partially filled</option>
+                      <option>Empty / drained</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="pp-timeline">Inspection Timeline Needed</label>
+                    <select id="pp-timeline" name="timeline">
+                      <option value="">Select...</option>
+                      <option>Within inspection contingency (urgent)</option>
+                      <option>Within the next 1–2 weeks</option>
+                      <option>2–4 weeks</option>
+                      <option>Just researching for now</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="pp-includes-spa">Does Property Have a Spa Too?</label>
+                    <select id="pp-includes-spa" name="includes_spa">
+                      <option value="">Select...</option>
+                      <option>Yes — pool and spa</option>
+                      <option>Pool only</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div id="followup-advice" class="followup-group" style="display:none;">
+                <div class="followup-header">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                  Tell us what's happening
+                </div>
+                <div class="followup-grid">
+                  <div class="form-group">
+                    <label for="adv-symptom">What Are You Noticing?</label>
+                    <select id="adv-symptom" name="symptom">
+                      <option value="">Select...</option>
+                      <option>Water level keeps dropping</option>
+                      <option>Water bill is higher than usual</option>
+                      <option>Wet or soggy ground near the pool</option>
+                      <option>Pump making unusual sounds / losing prime</option>
+                      <option>Visible crack or damaged tile</option>
+                      <option>Multiple issues</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="adv-duration">How Long Has This Been Going On?</label>
+                    <select id="adv-duration" name="duration">
+                      <option value="">Select...</option>
+                      <option>Just noticed it</option>
+                      <option>A few weeks</option>
+                      <option>1–3 months</option>
+                      <option>More than 3 months</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
               <div class="form-group">
                 <label for="message">Tell Us About Your Pool</label>
                 <textarea id="message" name="message" placeholder="Describe the issue — e.g. noticing water loss, wet spots around pool, high water bills..."></textarea>
@@ -399,5 +711,69 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
   </a>
   <script src="js/main.js"></script>
+  <script>
+    // ── Pre-select city from URL param (?city=Beverly+Hills) ──
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const city = params.get('city');
+      if (city) {
+        const citySelect = document.getElementById('city');
+        if (citySelect) {
+          const decoded = decodeURIComponent(city.replace(/\+/g, ' '));
+          for (let i = 0; i < citySelect.options.length; i++) {
+            if (citySelect.options[i].text === decoded) {
+              citySelect.selectedIndex = i;
+              // Briefly highlight so user notices it was pre-filled
+              citySelect.style.borderColor = 'var(--orange)';
+              citySelect.style.background = '#fff8f5';
+              setTimeout(() => {
+                citySelect.style.borderColor = '';
+                citySelect.style.background = '';
+              }, 2000);
+              break;
+            }
+          }
+        }
+      }
+    })();
+
+    // ── Dynamic follow-up questions based on service selected ──
+    (function() {
+      const serviceMap = {
+        'pool':        'followup-pool',
+        'spa':         'followup-spa',
+        'pool-spa':    'followup-pool-spa',
+        'repair':      'followup-repair',
+        'prepurchase': 'followup-prepurchase',
+        'advice':      'followup-advice'
+      };
+
+      const allFollowups = Object.values(serviceMap);
+
+      function showFollowup(val) {
+        allFollowups.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.style.display = 'none';
+        });
+        const target = serviceMap[val];
+        if (target) {
+          const el = document.getElementById(target);
+          if (el) {
+            el.style.display = 'block';
+            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      }
+
+      const serviceSelect = document.getElementById('service');
+      if (serviceSelect) {
+        serviceSelect.addEventListener('change', function() {
+          showFollowup(this.value);
+        });
+        // In case page loads with a value already set
+        if (serviceSelect.value) showFollowup(serviceSelect.value);
+      }
+    })();
+  </script>
 </body>
 </html>
