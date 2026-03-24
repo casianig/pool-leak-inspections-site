@@ -100,21 +100,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* --- Google Review Popup Widget --- */
   (function() {
-    // Only show once per session
-    if (sessionStorage.getItem('reviewPopupShown')) return;
+    // Show once per day (24h cooldown stored in localStorage)
+    const COOLDOWN_MS = 24 * 60 * 60 * 1000;
+    const lastShown = localStorage.getItem('reviewPopupTime');
+    if (lastShown && (Date.now() - parseInt(lastShown, 10)) < COOLDOWN_MS) return;
 
     const reviews = [
-      { name: 'Michael T.',    initial: 'M', color: '#4285F4', ago: '3 weeks ago',  text: 'Found a crack in my return line within 45 minutes. Two other companies had no idea. Fixed same day. Absolutely phenomenal.' },
-      { name: 'Sarah K.',      initial: 'S', color: '#EA4335', ago: '1 month ago',  text: 'Called Tuesday, got an appointment Thursday. Found a skimmer gasket leak that was costing me hundreds in water bills. Worth every penny!' },
-      { name: 'David R.',      initial: 'D', color: '#34A853', ago: '6 weeks ago',  text: 'Two other companies couldn\'t find it. Pool Leak Inspections found it in the main drain in under an hour. My water bill is back to normal.' },
-      { name: 'Jennifer L.',   initial: 'J', color: '#FBBC04', ago: '2 months ago', text: 'Tested everything — pressure lines, fittings, light housing, skimmer — and pinpointed a micro-crack near the light niche. Five stars, no question.' },
-      { name: 'Carlos V.',     initial: 'C', color: '#FF5722', ago: '3 months ago', text: 'My water bill jumped $300 one month. These guys found a crack in my underground return line using pressure testing. Straight to the problem. Absolute pros.' },
-      { name: 'Olivia B.',     initial: 'O', color: '#673AB7', ago: '10 months ago', text: 'Had a party planned and noticed the pool dropping fast. Called Friday evening, they fit me in Saturday morning. Fixed in 20 minutes. Party saved!' },
+      { name: 'Michael T.',  initial: 'M', color: '#4285F4', ago: '3 weeks ago',   text: 'Found a crack in my return line within 45 minutes. Two other companies had no idea. Fixed same day. Absolutely phenomenal.' },
+      { name: 'Sarah K.',    initial: 'S', color: '#EA4335', ago: '1 month ago',   text: 'Called Tuesday, got an appointment Thursday. Found a skimmer gasket leak that was costing me hundreds in water bills. Worth every penny!' },
+      { name: 'David R.',    initial: 'D', color: '#34A853', ago: '6 weeks ago',   text: 'Two other companies couldn\'t find it. Pool Leak Inspections found it in the main drain in under an hour. My water bill is back to normal.' },
+      { name: 'Jennifer L.', initial: 'J', color: '#FBBC04', ago: '2 months ago',  text: 'Tested everything — pressure lines, fittings, light housing, skimmer — pinpointed a micro-crack near the light niche. Five stars, no question.' },
+      { name: 'Carlos V.',   initial: 'C', color: '#FF5722', ago: '3 months ago',  text: 'My water bill jumped $300 one month. These guys found a crack in my underground return line using pressure testing. Absolute pros.' },
+      { name: 'Olivia B.',   initial: 'O', color: '#673AB7', ago: '10 months ago', text: 'Had a party planned and the pool was dropping fast. Called Friday evening, fit me in Saturday morning. Fixed in 20 minutes. Party saved!' },
     ];
 
     const review = reviews[Math.floor(Math.random() * reviews.length)];
-
-    // Determine the base path (handle /blog/ subdirectory)
     const inBlogDir = window.location.pathname.includes('/blog/');
     const testimonialsPath = inBlogDir ? '../testimonials.html' : 'testimonials.html';
 
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </svg>
           <span>Verified Google Review</span>
         </div>
-        <button class="review-popup-close" aria-label="Close" id="review-popup-close">×</button>
+        <button class="review-popup-close" aria-label="Close">×</button>
       </div>
       <div class="review-popup-body">
         <div class="review-popup-avatar" style="background:${review.color}">${review.initial}</div>
@@ -145,45 +145,46 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
       <div class="review-popup-progress">
-        <div class="review-popup-progress-bar" id="review-progress-bar"></div>
-      </div>
-    `;
+        <div class="review-popup-progress-bar"></div>
+      </div>`;
 
     document.body.appendChild(popup);
 
-    const DISPLAY_DURATION = 8000; // ms before auto-dismiss
-    const DELAY = 5000;            // ms before showing
+    const DISPLAY_MS = 8000;
+    const DELAY_MS   = 4000;
     let dismissTimer;
 
     function dismiss() {
+      clearTimeout(dismissTimer);
       popup.classList.add('hide');
       popup.classList.remove('show');
-      sessionStorage.setItem('reviewPopupShown', '1');
-      clearTimeout(dismissTimer);
-      setTimeout(() => popup.remove(), 400);
+      localStorage.setItem('reviewPopupTime', Date.now().toString());
+      setTimeout(() => { if (popup.parentNode) popup.parentNode.removeChild(popup); }, 400);
     }
 
-    // Close button — stop propagation so it doesn't navigate
-    popup.querySelector('#review-popup-close').addEventListener('click', e => {
+    popup.querySelector('.review-popup-close').addEventListener('click', function(e) {
       e.preventDefault();
       e.stopPropagation();
       dismiss();
     });
 
-    // Show after delay
-    setTimeout(() => {
+    setTimeout(function() {
       popup.classList.add('show');
-      sessionStorage.setItem('reviewPopupShown', '1');
 
-      // Animate progress bar
-      const bar = document.getElementById('review-progress-bar');
+      // Kick off progress bar animation
+      const bar = popup.querySelector('.review-popup-progress-bar');
       if (bar) {
-        bar.style.transition = `transform ${DISPLAY_DURATION}ms linear`;
-        requestAnimationFrame(() => { bar.style.transform = 'scaleX(0)'; });
+        // Use double rAF to ensure transition picks up from scaleX(1)
+        requestAnimationFrame(function() {
+          requestAnimationFrame(function() {
+            bar.style.transition = 'transform ' + DISPLAY_MS + 'ms linear';
+            bar.style.transform = 'scaleX(0)';
+          });
+        });
       }
 
-      dismissTimer = setTimeout(dismiss, DISPLAY_DURATION);
-    }, DELAY);
+      dismissTimer = setTimeout(dismiss, DISPLAY_MS);
+    }, DELAY_MS);
 
   })();
 
