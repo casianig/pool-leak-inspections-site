@@ -712,9 +712,11 @@
   </a>
   <script src="js/main.js"></script>
   <script>
-    // ── Pre-select city from URL param (?city=Beverly+Hills) ──
+    // ── Pre-select city and/or service from URL params ──
     (function() {
       const params = new URLSearchParams(window.location.search);
+
+      // Pre-select city (?city=Beverly+Hills)
       const city = params.get('city');
       if (city) {
         const citySelect = document.getElementById('city');
@@ -723,16 +725,28 @@
           for (let i = 0; i < citySelect.options.length; i++) {
             if (citySelect.options[i].text === decoded) {
               citySelect.selectedIndex = i;
-              // Briefly highlight so user notices it was pre-filled
               citySelect.style.borderColor = 'var(--orange)';
               citySelect.style.background = '#fff8f5';
-              setTimeout(() => {
-                citySelect.style.borderColor = '';
-                citySelect.style.background = '';
-              }, 2000);
+              setTimeout(() => { citySelect.style.borderColor = ''; citySelect.style.background = ''; }, 2000);
               break;
             }
           }
+        }
+      }
+
+      // Pre-select service (?service=pool|spa|pool-spa|repair|prepurchase|advice)
+      const service = params.get('service');
+      if (service) {
+        const serviceSelect = document.getElementById('service');
+        if (serviceSelect) {
+          serviceSelect.value = service;
+          serviceSelect.style.borderColor = 'var(--orange)';
+          serviceSelect.style.background = '#fff8f5';
+          setTimeout(() => { serviceSelect.style.borderColor = ''; serviceSelect.style.background = ''; }, 2000);
+          // Trigger the follow-up reveal
+          serviceSelect.dispatchEvent(new Event('change'));
+          // Scroll form into view smoothly
+          serviceSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       }
     })();
