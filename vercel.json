@@ -29,10 +29,11 @@
     { "source": "/locations", "destination": "/locations.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/testimonials", "destination": "/testimonials.html" },
-    { "source": "/bucket-test", "destination": "/bucket-test.html" }
+    { "source": "/bucket-test", "destination": "/bucket-test.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/blog/:path", "destination": "/blog/:path.html" }
   ],
   "redirects": [
-    { "source": "/contact-us", "destination": "/contact", "permanent": true },
-    { "source": "/blog", "destination": "/", "permanent": false }
+    { "source": "/contact-us", "destination": "/contact", "permanent": true }
   ]
 }
