@@ -98,6 +98,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+  /* --- How It Works animated steps --- */
+  const stepsWrapper = document.querySelector('.steps-wrapper');
+  if (stepsWrapper) {
+    new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        stepsWrapper.classList.add('in-view');
+      }
+    }, { threshold: 0.25 }).observe(stepsWrapper);
+  }
+
 });
 
 /* --- Google Review Popup Widget (isolated listener) --- */
