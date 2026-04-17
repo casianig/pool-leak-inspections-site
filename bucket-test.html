@@ -5,11 +5,102 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pool Bucket Test | How to Tell If Your Pool Is Leaking</title>
   <meta name="description" content="Learn how to do the pool bucket test at home to find out if your pool is really leaking or just losing water to evaporation. Step-by-step guide from Pool Leak Inspections." />
+  <meta property="og:title" content="How to Do a Pool Bucket Test | Pool Leak Inspections" />
+  <meta property="og:description" content="Step-by-step DIY pool bucket test to check for a leak. If you lose more than ¼ inch per day, call us for a professional inspection." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.poolleakinspections.com/bucket-test" />
+  <meta property="og:image" content="https://www.poolleakinspections.com/images/og-home.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Pool Leak Inspections" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How to Do a Pool Bucket Test | Pool Leak Inspections" />
+  <meta name="twitter:description" content="Step-by-step DIY pool bucket test to check for a leak. If you lose more than ¼ inch per day, call us for a professional inspection." />
+  <meta name="twitter:image" content="https://www.poolleakinspections.com/images/og-home.jpg" />
   <link rel="canonical" href="https://www.poolleakinspections.com/bucket-test" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=4" />
+  <link rel="stylesheet" href="css/style.css?v=6" />
+
+  <!-- Bucket-test animated explainer styles -->
+  <style>
+    .bt-stage { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: var(--radius-lg); overflow: hidden; background: linear-gradient(135deg, #0a1a34 0%, #1B4B8A 55%, #0a1a34 100%); box-shadow: var(--shadow-lg); color: #fff; }
+    .bt-scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: clamp(18px, 4vw, 36px); opacity: 0; pointer-events: none; transition: opacity 0.45s ease; }
+    .bt-scene.active { opacity: 1; pointer-events: auto; }
+    .bt-inner { text-align: center; max-width: 100%; width: 100%; }
+    .bt-badge { display: inline-block; background: #E8521A; color: #fff; font-size: 0.68rem; font-weight: 800; letter-spacing: 2px; padding: 4px 12px; border-radius: 50px; margin-bottom: 14px; }
+    .bt-step { display: inline-block; background: rgba(232,82,26,0.22); border: 1px solid rgba(232,82,26,0.55); color: #ff8a5c; font-size: 0.7rem; font-weight: 800; letter-spacing: 1.5px; padding: 4px 12px; border-radius: 50px; margin-bottom: 12px; }
+    .bt-h { font-size: clamp(1.15rem, 2.4vw, 1.65rem); font-weight: 900; margin: 0 0 12px; color: #fff; line-height: 1.25; }
+    .bt-p { font-size: clamp(0.85rem, 1.4vw, 1rem); color: rgba(255,255,255,0.82); line-height: 1.55; margin: 0; max-width: 440px; margin-left: auto; margin-right: auto; }
+    .bt-phone { display: inline-flex; align-items: center; gap: 8px; background: #E8521A; color: #fff; padding: 11px 22px; border-radius: 10px; font-weight: 800; text-decoration: none; margin-top: 10px; box-shadow: 0 8px 24px rgba(232,82,26,0.45); font-size: 0.95rem; }
+
+    /* S1 intro */
+    .bt-s1 .bt-badge, .bt-s1 .bt-h, .bt-s1 .bt-p { opacity: 0; transform: translateY(8px); transition: all 0.45s ease-out; }
+    .bt-s1.active .bt-badge { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+    .bt-s1.active .bt-h { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+    .bt-s1.active .bt-p { opacity: 1; transform: translateY(0); transition-delay: 0.55s; }
+
+    /* Generic scene entry anim */
+    .bt-scene .bt-step, .bt-scene .bt-h, .bt-scene .bt-p, .bt-scene .bt-art { opacity: 0; transform: translateY(10px); transition: all 0.45s ease-out; }
+    .bt-scene.active .bt-step { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+    .bt-scene.active .bt-art  { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+    .bt-scene.active .bt-h    { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+    .bt-scene.active .bt-p    { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
+
+    .bt-art { margin: 4px auto 12px; display: flex; align-items: center; justify-content: center; }
+    .bt-art svg { max-width: 100%; height: auto; }
+
+    /* S2: bucket icon */
+    .bt-bucket-svg { width: clamp(80px, 14vw, 110px); }
+
+    /* S3: pool + bucket scene */
+    .bt-pool-scene { width: 100%; max-width: 360px; position: relative; margin: 0 auto; }
+    .bt-pool-scene svg { display: block; }
+    /* animated water fills */
+    @keyframes btWaterRise { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .bt-scene.active .bt-pool-water, .bt-scene.active .bt-bucket-water { animation: btWaterRise 1.2s ease-out 0.4s both; }
+
+    /* S4: auto-fill off */
+    .bt-faucet-svg { width: clamp(100px, 16vw, 130px); position: relative; }
+    .bt-off-x { position: absolute; font-size: 2.5rem; color: #ef4444; font-weight: 900; opacity: 0; animation: btPop 0.4s ease-out 0.6s forwards; }
+    @keyframes btPop { 0% { opacity:0; transform: scale(0.5); } 100% { opacity:1; transform: scale(1); } }
+    .bt-s4.active .bt-off-x { animation-play-state: running; }
+    .bt-s4:not(.active) .bt-off-x { opacity: 0; animation: none; }
+
+    /* S5: clock */
+    .bt-clock { width: clamp(90px, 15vw, 120px); height: clamp(90px, 15vw, 120px); border: 4px solid #fff; border-radius: 50%; position: relative; margin: 0 auto; }
+    .bt-clock::after { content: ''; position: absolute; top: 4px; left: 50%; width: 3px; height: 44%; background: #ff8a5c; transform-origin: 50% 100%; transform: translateX(-50%) rotate(0deg); }
+    .bt-s5.active .bt-clock::after { animation: btTick 3.5s linear infinite; }
+    @keyframes btTick { to { transform: translateX(-50%) rotate(360deg); } }
+    .bt-clock-label { margin-top: 14px; font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 900; color: #ff8a5c; letter-spacing: 1px; }
+
+    /* S6: compare */
+    .bt-compare { display: flex; gap: 18px; align-items: flex-end; justify-content: center; margin: 8px auto 12px; max-width: 340px; }
+    .bt-vessel { flex: 1; max-width: 120px; text-align: center; }
+    .bt-vessel-body { position: relative; height: clamp(90px, 14vw, 120px); border: 2.5px solid #fff; border-top: none; border-radius: 0 0 10px 10px; overflow: hidden; background: rgba(255,255,255,0.04); }
+    .bt-vessel-fill { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(170,208,255,0.25), rgba(27,75,138,0.85)); transform: translateY(0); transition: transform 2s ease-in-out 0.5s; }
+    .bt-s6.active .bt-vessel.pool .bt-vessel-fill { transform: translateY(50%); }   /* pool drops 50% */
+    .bt-s6.active .bt-vessel.bucket .bt-vessel-fill { transform: translateY(15%); } /* bucket drops 15% (evap only) */
+    .bt-vessel-label { margin-top: 8px; font-size: 0.82rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.85); }
+    .bt-vessel-drop  { font-size: 0.72rem; color: #ff8a5c; font-weight: 700; margin-top: 2px; opacity: 0; transition: opacity 0.45s ease 2.5s; }
+    .bt-s6.active .bt-vessel-drop { opacity: 1; }
+    .bt-verdict { margin-top: 10px; font-weight: 800; color: #ff8a5c; font-size: clamp(0.85rem, 1.5vw, 1rem); opacity: 0; transition: opacity 0.45s ease 2.7s; }
+    .bt-s6.active .bt-verdict { opacity: 1; }
+
+    /* Controls */
+    .bt-progress { position: absolute; bottom: 0; left: 0; height: 4px; background: #E8521A; width: 0%; transition: width 0.3s linear; z-index: 3; }
+    .bt-controls { position: absolute; top: 12px; right: 12px; display: flex; gap: 8px; z-index: 3; }
+    .bt-ctrl { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2); color: #fff; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(6px); }
+    .bt-ctrl:hover { background: rgba(232,82,26,0.85); }
+    .bt-start { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(10,26,52,0.82); backdrop-filter: blur(6px); z-index: 4; transition: opacity 0.4s ease; }
+    .bt-start.hidden { opacity: 0; pointer-events: none; }
+    .bt-playbtn { background: #E8521A; color: #fff; border: 0; padding: 14px 28px; border-radius: 50px; font-size: 0.98rem; font-weight: 800; cursor: pointer; box-shadow: 0 10px 26px rgba(232,82,26,0.5); display: flex; align-items: center; gap: 10px; font-family: inherit; }
+    .bt-playbtn:hover { transform: scale(1.04); }
+    .bt-playbtn svg { width: 18px; height: 18px; }
+  </style>
 </head>
 <body>
 
@@ -25,8 +116,10 @@
       </a>
       <nav class="main-nav">
         <a href="index.html">Home</a>
+        <a href="about.html">About</a>
         <a href="services.html">Services</a>
         <a href="locations.html">Locations</a>
+        <a href="gallery.html">Gallery</a>
         <a href="bucket-test.html" class="active">Bucket Test</a>
         <a href="blog.html">Blog</a>
         <a href="contact.html" class="nav-cta">Contact Us</a>
@@ -74,9 +167,144 @@
             </div>
           </div>
           <div>
-            <img src="https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=800&q=80"
-                 alt="Bucket test for pool leak detection"
-                 style="border-radius:18px;box-shadow:var(--shadow-lg);width:100%;" loading="lazy" />
+            <div class="bt-stage" id="bt-stage" role="region" aria-label="Bucket test animated walkthrough">
+              <div class="bt-controls"><button class="bt-ctrl" id="bt-replay" aria-label="Replay tutorial">↻</button></div>
+
+              <!-- S1: Title -->
+              <div class="bt-scene bt-s1">
+                <div class="bt-inner">
+                  <div class="bt-badge">DIY GUIDE · 5 MIN</div>
+                  <h3 class="bt-h">The Bucket Test</h3>
+                  <p class="bt-p">Find out if your pool is really leaking — or just losing water to evaporation.</p>
+                </div>
+              </div>
+
+              <!-- S2: Grab a bucket -->
+              <div class="bt-scene bt-s2">
+                <div class="bt-inner">
+                  <div class="bt-step">Step 1</div>
+                  <div class="bt-art">
+                    <svg class="bt-bucket-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path d="M22 30 L28 105 a4 4 0 0 0 4 4 h56 a4 4 0 0 0 4 -4 L98 30 Z" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round"/>
+                      <path d="M18 30 h84" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+                      <path d="M32 30 C 38 8, 82 8, 88 30" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+                      <rect x="30" y="45" width="60" height="58" rx="2" fill="rgba(170,208,255,0.35)"/>
+                      <path d="M30 55 Q 45 50 60 55 T 90 55" stroke="#aad0ff" stroke-width="1.8" fill="none"/>
+                    </svg>
+                  </div>
+                  <h3 class="bt-h">Grab a 5-gallon bucket</h3>
+                  <p class="bt-p">Make sure your pool is filled to its normal operating level.</p>
+                </div>
+              </div>
+
+              <!-- S3: Place on step & match water lines -->
+              <div class="bt-scene bt-s3">
+                <div class="bt-inner">
+                  <div class="bt-step">Step 2</div>
+                  <div class="bt-art">
+                    <svg class="bt-pool-scene" viewBox="0 0 360 190" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <!-- pool walls (cross-section) -->
+                      <path d="M10 50 L10 170 L350 170 L350 50" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>
+
+                      <!-- pool water (left/main area) -->
+                      <rect x="10" y="70" width="340" height="100" fill="rgba(170,208,255,0.22)"/>
+
+                      <!-- 2nd step (solid shelf, sticks up from floor on right) -->
+                      <path d="M230 170 L230 115 L350 115 L350 170 Z" fill="#1a3869" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+                      <text x="240" y="135" fill="rgba(255,255,255,0.65)" font-size="9" font-weight="700" letter-spacing="1">2ND STEP</text>
+
+                      <!-- bucket sitting ON the step (opaque body hides pool water behind it) -->
+                      <!-- Handle -->
+                      <path d="M285 40 C 290 24, 310 24, 315 40" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                      <!-- Bucket body: rim top at y=45, sits on step at y=115 -->
+                      <path d="M275 45 L281 112 a4 4 0 0 0 4 3 h30 a4 4 0 0 0 4 -3 L325 45 Z" fill="#0a1a34" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/>
+                      <!-- Rim -->
+                      <path d="M271 45 h58" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+                      <!-- Water INSIDE bucket — top at y=70 (matches pool), bottom at bucket base -->
+                      <rect x="284" y="70" width="32" height="42" fill="rgba(170,208,255,0.55)"/>
+
+                      <!-- Pool water line (dashed, left side only) -->
+                      <line x1="10" y1="70" x2="270" y2="70" stroke="#ff8a5c" stroke-width="2.2" stroke-dasharray="6 4"/>
+                      <text x="14" y="64" fill="#ff8a5c" font-size="10" font-weight="800" letter-spacing="1">POOL LINE</text>
+
+                      <!-- Bucket water line (solid, inside bucket, SAME Y=70) -->
+                      <line x1="283" y1="70" x2="320" y2="70" stroke="#ff8a5c" stroke-width="2.2"/>
+
+                      <!-- MATCH badge + arrow pointing to bucket water line -->
+                      <rect x="272" y="12" width="60" height="19" rx="9.5" fill="#E8521A"/>
+                      <text x="302" y="25" fill="#fff" font-size="10" font-weight="800" text-anchor="middle" letter-spacing="1">MATCH</text>
+                      <line x1="302" y1="31" x2="302" y2="62" stroke="#E8521A" stroke-width="2"/>
+                      <polygon points="297,62 307,62 302,69" fill="#E8521A"/>
+                    </svg>
+                  </div>
+                  <h3 class="bt-h">Place bucket on the 2nd step</h3>
+                  <p class="bt-p">Fill it until the bucket's water level matches the pool's. Mark both lines.</p>
+                </div>
+              </div>
+
+              <!-- S4: Turn off auto-fill -->
+              <div class="bt-scene bt-s4">
+                <div class="bt-inner">
+                  <div class="bt-step">Step 3</div>
+                  <div class="bt-art" style="position:relative;">
+                    <svg class="bt-faucet-svg" viewBox="0 0 130 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <rect x="8" y="20" width="18" height="70" rx="2" fill="none" stroke="#fff" stroke-width="3"/>
+                      <path d="M26 40 h60 v14 h-60 Z" fill="rgba(255,255,255,0.08)" stroke="#fff" stroke-width="3"/>
+                      <path d="M86 54 v18 h-10 v-18 Z" fill="rgba(255,255,255,0.08)" stroke="#fff" stroke-width="3"/>
+                      <line x1="81" y1="75" x2="81" y2="100" stroke="#aad0ff" stroke-width="3" stroke-dasharray="4 3" opacity="0.5"/>
+                      <circle cx="81" cy="104" r="3" fill="#aad0ff" opacity="0.5"/>
+                    </svg>
+                    <span class="bt-off-x" style="top:-6px;right:-8px;">✕</span>
+                  </div>
+                  <h3 class="bt-h">Turn OFF the auto-fill</h3>
+                  <p class="bt-p">Keep the pump on its normal schedule — just disable auto top-off.</p>
+                </div>
+              </div>
+
+              <!-- S5: Wait 24h -->
+              <div class="bt-scene bt-s5">
+                <div class="bt-inner">
+                  <div class="bt-step">Step 4</div>
+                  <div class="bt-art">
+                    <div class="bt-clock"></div>
+                  </div>
+                  <div class="bt-clock-label">WAIT 24 HRS</div>
+                  <p class="bt-p" style="margin-top:10px;">Evaporation affects pool and bucket equally. Only a leak drops the pool faster.</p>
+                </div>
+              </div>
+
+              <!-- S6: Compare + verdict -->
+              <div class="bt-scene bt-s6">
+                <div class="bt-inner">
+                  <div class="bt-step">Step 5 — The Verdict</div>
+                  <div class="bt-art">
+                    <div class="bt-compare">
+                      <div class="bt-vessel pool">
+                        <div class="bt-vessel-body"><div class="bt-vessel-fill"></div></div>
+                        <div class="bt-vessel-label">Pool</div>
+                        <div class="bt-vessel-drop">dropped ½"</div>
+                      </div>
+                      <div class="bt-vessel bucket">
+                        <div class="bt-vessel-body"><div class="bt-vessel-fill"></div></div>
+                        <div class="bt-vessel-label">Bucket</div>
+                        <div class="bt-vessel-drop" style="color:#aad0ff;">dropped ⅛"</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="bt-verdict">Pool dropped MORE than bucket → you have a leak.</div>
+                  <a href="tel:+18188580484" class="bt-phone">📞 (818) 858-0484</a>
+                </div>
+              </div>
+
+              <div class="bt-start" id="bt-start">
+                <button class="bt-playbtn" id="bt-play" aria-label="Play bucket test tutorial">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                  Play 35-Second Tutorial
+                </button>
+              </div>
+
+              <div class="bt-progress" id="bt-progress"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -239,14 +467,17 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="index.html" class="logo"><img src="https://static.wixstatic.com/media/5e729e_a7894a8046254cdc8d244def959a9d24~mv2.png" alt="Pool Leak Inspections" width="130" /></a>
-          <p>Licensed and insured pool leak detection specialists serving Los Angeles and Ventura County for over 20 years.</p>
+          <p>Licensed and insured pool leak detection specialists serving Los Angeles and Ventura County since 2004.</p>
+          <p style="margin-top:10px;font-size:0.8rem;opacity:0.7;">CSLB #1061521 · C-53 Swimming Pool/Spa</p>
         </div>
         <div class="footer-col">
           <h4>Quick Links</h4>
           <ul>
             <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="locations.html">Locations</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
             <li><a href="bucket-test.html">Bucket Test</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="contact.html">Contact Us</a></li>
@@ -280,8 +511,8 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>&copy; 2025 Pool Leak Inspections. All rights reserved.</span>
-        <span>Licensed &amp; Insured | Serving Los Angeles &amp; Ventura County</span>
+        <span>&copy; 2026 Pool Leak Inspections. All rights reserved. &nbsp;|&nbsp; <a href="privacy.html" style="color:inherit;">Privacy</a> &nbsp;|&nbsp; <a href="terms.html" style="color:inherit;">Terms</a></span>
+        <span>Licensed &amp; Insured · CSLB #1061521 (C-53)</span>
       </div>
     </div>
   </footer>
@@ -289,6 +520,58 @@
   <a href="tel:+18188580484" class="floating-call" aria-label="Call us now">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
   </a>
-  <script src="js/main.js?v=4"></script>
+  <script src="js/main.js?v=6"></script>
+
+  <!-- Bucket-test animated player -->
+  <script>
+  (function() {
+    const stage = document.getElementById('bt-stage');
+    if (!stage) return;
+    const scenes = stage.querySelectorAll('.bt-scene');
+    const progress = document.getElementById('bt-progress');
+    const startOver = document.getElementById('bt-start');
+    const playBtn = document.getElementById('bt-play');
+    const replayBtn = document.getElementById('bt-replay');
+    const durations = [3000, 5500, 6500, 5000, 5500, 9500]; // ms ~35s
+    const total = durations.reduce((a, b) => a + b, 0);
+    let timeouts = [];
+    let rafId = null;
+    let startTime = 0;
+
+    function showScene(idx) {
+      scenes.forEach((s, i) => s.classList.toggle('active', i === idx));
+    }
+    function tick() {
+      const elapsed = Date.now() - startTime;
+      progress.style.width = Math.min(100, (elapsed / total) * 100) + '%';
+      if (elapsed < total) rafId = requestAnimationFrame(tick);
+    }
+    function clearTimers() {
+      timeouts.forEach(t => clearTimeout(t));
+      timeouts = [];
+      if (rafId) cancelAnimationFrame(rafId);
+    }
+    function play() {
+      clearTimers();
+      startOver.classList.add('hidden');
+      startTime = Date.now();
+      rafId = requestAnimationFrame(tick);
+      let cumulative = 0;
+      scenes.forEach((_, i) => {
+        timeouts.push(setTimeout(() => showScene(i), cumulative));
+        cumulative += durations[i];
+      });
+    }
+    function reset() {
+      clearTimers();
+      progress.style.width = '0%';
+      showScene(0);
+      startOver.classList.remove('hidden');
+    }
+    playBtn.addEventListener('click', play);
+    replayBtn.addEventListener('click', () => { reset(); setTimeout(play, 200); });
+    showScene(0);
+  })();
+  </script>
 </body>
 </html>

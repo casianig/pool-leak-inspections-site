@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url><loc>https://www.poolleakinspections.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://www.poolleakinspections.com/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.poolleakinspections.com/services</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.poolleakinspections.com/locations</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.poolleakinspections.com/gallery</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.poolleakinspections.com/bucket-test</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.poolleakinspections.com/testimonials</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.poolleakinspections.com/blog</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.poolleakinspections.com/contact</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.poolleakinspections.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.poolleakinspections.com/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+
+  <!-- Blog posts -->
+  <url><loc>https://www.poolleakinspections.com/blog/pool-leak-detection-101</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.poolleakinspections.com/blog/7-signs-pool-is-leaking</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.poolleakinspections.com/blog/ultimate-pool-bucket-test-guide</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.poolleakinspections.com/blog/how-much-water-is-your-pool-leak-wasting</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.poolleakinspections.com/blog/pool-skimmer-leaks-la</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.poolleakinspections.com/blog/buying-home-with-pool-los-angeles</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- City landing pages -->
+  <url><loc>https://www.poolleakinspections.com/locations/beverly-hills</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.poolleakinspections.com/locations/santa-monica</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.poolleakinspections.com/locations/sherman-oaks</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.poolleakinspections.com/locations/encino</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.poolleakinspections.com/locations/calabasas</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.poolleakinspections.com/locations/thousand-oaks</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.poolleakinspections.com/locations/studio-city</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.poolleakinspections.com/locations/woodland-hills</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.poolleakinspections.com/locations/pacific-palisades</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.poolleakinspections.com/locations/glendale</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.poolleakinspections.com/locations/burbank</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.poolleakinspections.com/locations/brentwood</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+</urlset>

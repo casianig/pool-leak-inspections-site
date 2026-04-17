@@ -10,9 +10,24 @@
 
   <!-- Open Graph -->
   <meta property="og:title" content="Pool Leak Inspections | Expert Pool Leak Detection LA" />
-  <meta property="og:description" content="Licensed & insured pool leak detection in Los Angeles. Starting from $195. If we can't find your leak — it's FREE!" />
+  <meta property="og:description" content="Licensed & insured pool leak detection in Los Angeles & Ventura County. Starting from $195. If we can't find your leak — it's FREE!" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.poolleakinspections.com/" />
+  <meta property="og:image" content="https://www.poolleakinspections.com/images/og-home.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Pool Leak Inspections" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pool Leak Inspections | Expert Pool Leak Detection LA" />
+  <meta name="twitter:description" content="Licensed & insured pool leak detection in Los Angeles & Ventura County. Starting from $195. No find, no fee!" />
+  <meta name="twitter:image" content="https://www.poolleakinspections.com/images/og-home.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,27 +35,133 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css?v=4" />
+  <link rel="stylesheet" href="css/style.css?v=6" />
 
-  <!-- Schema Markup -->
+  <!-- Animated explainer styles -->
+  <style>
+    .explainer-stage { position: relative; width: 100%; max-width: 900px; margin: 0 auto; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden; background: linear-gradient(135deg, #0a1a34 0%, #1B4B8A 50%, #0a1a34 100%); box-shadow: 0 25px 60px rgba(10,26,52,0.35); color: #fff; }
+    .pli-scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: clamp(20px, 5vw, 50px); opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
+    .pli-scene.active { opacity: 1; pointer-events: auto; }
+    .pli-scene-inner { text-align: center; max-width: 760px; }
+    .pli-h { font-size: clamp(1.2rem, 3vw, 2rem); font-weight: 900; margin: 0 0 16px; color: #fff; line-height: 1.2; }
+    .pli-tag { font-size: clamp(0.9rem, 1.8vw, 1.2rem); color: #ff8a5c; font-weight: 700; }
+
+    /* S1 */
+    .pli-s1 .pli-drop { width: 72px; height: 90px; margin: 0 auto 16px; opacity: 0; transform: scale(0.5); transition: all 0.55s ease-out; }
+    .pli-s1.active .pli-drop { opacity: 1; transform: scale(1); }
+    .pli-s1 .pli-h, .pli-s1 .pli-tag { opacity: 0; transform: translateY(12px); transition: all 0.45s ease-out 0.25s; }
+    .pli-s1.active .pli-h, .pli-s1.active .pli-tag { opacity: 1; transform: translateY(0); }
+    .pli-s1 .pli-tag { transition-delay: 0.55s; color: #ff8a5c; }
+
+    /* S2 */
+    .pli-water { width: 70%; max-width: 340px; height: 130px; margin: 0 auto 18px; position: relative; border: 3px solid #fff; border-top: none; border-radius: 0 0 12px 12px; overflow: hidden; }
+    .pli-water::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(27,75,138,0.7)); transform: translateY(0); transition: transform 1.6s ease-in-out; }
+    .pli-s2.active .pli-water::before { transform: translateY(45%); }
+    .pli-dollars { font-size: clamp(0.9rem, 1.6vw, 1.05rem); color: #ff8a5c; opacity: 0; transition: opacity 0.45s ease 1s; }
+    .pli-s2.active .pli-dollars { opacity: 1; }
+
+    /* S3 */
+    .pli-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
+    .pli-method { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 18px 12px; opacity: 0; transform: translateY(16px); transition: all 0.4s ease; }
+    .pli-method strong { display: block; font-size: 0.82rem; letter-spacing: 1px; margin-bottom: 4px; }
+    .pli-method span { font-size: 0.72rem; opacity: 0.7; line-height: 1.45; }
+    .pli-s3.active .pli-method:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+    .pli-s3.active .pli-method:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+    .pli-s3.active .pli-method:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
+    .pli-micon { width: 46px; height: 46px; margin: 0 auto 10px; background: linear-gradient(135deg, #E8521A, #ff8a5c); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+
+    /* S4 */
+    .pli-chips { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+    .pli-chip { background: rgba(232,82,26,0.18); border: 1.5px solid #E8521A; color: #ff8a5c; padding: 10px 18px; border-radius: 50px; font-weight: 700; font-size: 0.88rem; opacity: 0; transform: scale(0.8); transition: all 0.35s ease; }
+    .pli-s4.active .pli-chip:nth-child(1) { opacity: 1; transform: scale(1); transition-delay: 0.1s; }
+    .pli-s4.active .pli-chip:nth-child(2) { opacity: 1; transform: scale(1); transition-delay: 0.35s; }
+    .pli-s4.active .pli-chip:nth-child(3) { opacity: 1; transform: scale(1); transition-delay: 0.6s; }
+
+    /* S5 */
+    .pli-guarantee { background: #E8521A; border-radius: 16px; padding: clamp(28px, 5vw, 42px) clamp(20px, 4vw, 30px); max-width: 540px; margin: 0 auto; box-shadow: 0 18px 50px rgba(232,82,26,0.4); transform: scale(0.9); opacity: 0; transition: all 0.5s ease; }
+    .pli-s5.active .pli-guarantee { transform: scale(1); opacity: 1; }
+    .pli-gbig { font-size: clamp(1.2rem, 2.8vw, 1.8rem); font-weight: 900; line-height: 1.25; margin-bottom: 8px; }
+    .pli-gsub { font-size: 0.95rem; opacity: 0.9; }
+
+    /* S6 */
+    .pli-cta-eyebrow { font-size: clamp(0.95rem, 1.8vw, 1.15rem); opacity: 0.75; margin-bottom: 18px; }
+    .pli-phone { display: inline-flex; align-items: center; gap: 12px; background: #E8521A; color: #fff; padding: 18px 32px; border-radius: 12px; font-size: clamp(1.2rem, 2.5vw, 1.7rem); font-weight: 900; text-decoration: none; box-shadow: 0 14px 36px rgba(232,82,26,0.5); transform: scale(0.9); opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.3s; }
+    .pli-s6.active .pli-phone { transform: scale(1); opacity: 1; }
+    .pli-s6.active .pli-phone:hover { transform: scale(1.04); box-shadow: 0 18px 40px rgba(232,82,26,0.6); }
+    .pli-book { display: block; color: #aad0ff; margin-top: 18px; font-size: 0.93rem; opacity: 0; transition: opacity 0.35s ease 0.5s; text-decoration: none; }
+    .pli-s6.active .pli-book { opacity: 1; }
+    .pli-book:hover { text-decoration: underline; }
+
+    /* Controls / progress / start overlay */
+    .pli-progress { position: absolute; bottom: 0; left: 0; height: 4px; background: #E8521A; width: 0%; transition: width 0.3s linear; z-index: 3; }
+    .pli-controls { position: absolute; top: 14px; right: 14px; display: flex; gap: 8px; z-index: 3; }
+    .pli-ctrl { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.18); color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(6px); }
+    .pli-ctrl:hover { background: rgba(232,82,26,0.85); }
+    .pli-start { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(10,26,52,0.82); backdrop-filter: blur(6px); z-index: 4; transition: opacity 0.4s ease; }
+    .pli-start.hidden { opacity: 0; pointer-events: none; }
+    .pli-playbtn { background: #E8521A; color: #fff; border: 0; padding: 18px 34px; border-radius: 50px; font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 0 10px 28px rgba(232,82,26,0.5); display: flex; align-items: center; gap: 12px; font-family: inherit; }
+    .pli-playbtn:hover { transform: scale(1.04); }
+    .pli-playbtn svg { width: 20px; height: 20px; }
+
+    @media (max-width: 640px) {
+      .explainer-stage { aspect-ratio: 4/5; }
+      .pli-methods { grid-template-columns: 1fr; gap: 8px; }
+      .pli-method { padding: 10px 12px; display: flex; align-items: center; gap: 12px; text-align: left; }
+      .pli-method .pli-micon { margin: 0; width: 38px; height: 38px; flex-shrink: 0; }
+      .pli-chip { padding: 8px 14px; font-size: 0.8rem; }
+    }
+  </style>
+
+  <!-- Schema Markup: LocalBusiness -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
+    "@id": "https://www.poolleakinspections.com/#business",
     "name": "Pool Leak Inspections",
     "url": "https://www.poolleakinspections.com",
     "logo": "https://static.wixstatic.com/media/5e729e_a7894a8046254cdc8d244def959a9d24~mv2.png",
+    "image": "https://www.poolleakinspections.com/images/pool-technician.jpg",
     "telephone": "+18188580484",
     "email": "info@poolleakinspections.com",
-    "description": "Professional pool leak detection and repair services in Los Angeles and Ventura County. Licensed, insured, and trusted for over 20 years.",
+    "description": "Professional pool leak detection and repair services in Los Angeles and Ventura County. Licensed, insured, and trusted since 2004. CSLB #1061521 (C-53 Swimming Pool/Spa).",
     "priceRange": "$$",
-    "openingHours": ["Mo-Sa 09:00-18:00"],
-    "areaServed": ["Los Angeles", "Ventura County", "Beverly Hills", "Glendale", "Santa Monica", "Burbank", "Encino", "Sherman Oaks"],
+    "foundingDate": "2004",
+    "identifier": [
+      { "@type": "PropertyValue", "propertyID": "CSLB", "value": "1061521" },
+      { "@type": "PropertyValue", "propertyID": "Classification", "value": "C-53 Swimming Pool/Spa" }
+    ],
+    "slogan": "If we can't find your leak — it's FREE!",
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    }],
+    "areaServed": [
+      { "@type": "City", "name": "Los Angeles" },
+      { "@type": "AdministrativeArea", "name": "Ventura County" },
+      { "@type": "City", "name": "Beverly Hills" },
+      { "@type": "City", "name": "Glendale" },
+      { "@type": "City", "name": "Santa Monica" },
+      { "@type": "City", "name": "Burbank" },
+      { "@type": "City", "name": "Encino" },
+      { "@type": "City", "name": "Sherman Oaks" },
+      { "@type": "City", "name": "Thousand Oaks" },
+      { "@type": "City", "name": "Calabasas" },
+      { "@type": "City", "name": "Woodland Hills" }
+    ],
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Los Angeles",
       "addressRegion": "CA",
       "addressCountry": "US"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "200",
+      "bestRating": "5"
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -50,7 +171,19 @@
         { "@type": "Offer", "name": "Spa Leak Inspection", "price": "225", "priceCurrency": "USD" },
         { "@type": "Offer", "name": "Pool & Spa Leak Inspection", "price": "250", "priceCurrency": "USD" }
       ]
-    }
+    },
+    "sameAs": []
+  }
+  </script>
+
+  <!-- Schema Markup: WebSite (enables sitelinks search box in SERPs) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://www.poolleakinspections.com/",
+    "name": "Pool Leak Inspections",
+    "publisher": { "@id": "https://www.poolleakinspections.com/#business" }
   }
   </script>
 </head>
@@ -72,8 +205,10 @@
 
       <nav class="main-nav" aria-label="Main navigation">
         <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
         <a href="services.html">Services</a>
         <a href="locations.html">Locations</a>
+        <a href="gallery.html">Gallery</a>
         <a href="bucket-test.html">Bucket Test</a>
         <a href="blog.html">Blog</a>
         <a href="contact.html" class="nav-cta">Contact Us</a>
@@ -107,21 +242,70 @@
     <!-- Hero -->
     <section class="hero" aria-label="Hero section">
       <div class="hero-bg" role="img" aria-label="Crystal clear swimming pool"></div>
-      <div class="hero-content">
-        <div class="hero-eyebrow">Los Angeles &amp; Ventura County</div>
-        <h1>Expert <span>Pool Leak</span><br>Detection You<br>Can Trust</h1>
-        <p class="hero-sub">Licensed &amp; insured specialists with over 20 years of experience. We use advanced technology to find leaks others miss — fast, reliable, and guaranteed.</p>
-        <div class="hero-actions">
-          <a href="tel:+18188580484" class="btn btn-primary btn-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
-            Call (818) 858-0484
+
+      <div class="hero-layout">
+
+        <div class="hero-content">
+          <div class="hero-eyebrow">Los Angeles &amp; Ventura County</div>
+          <h1>Expert <span>Pool Leak</span><br>Detection You<br>Can Trust</h1>
+          <p class="hero-sub">Licensed &amp; insured specialists with over 20 years of experience. We use advanced technology to find leaks others miss — fast, reliable, and guaranteed.</p>
+          <div class="hero-actions">
+            <a href="tel:+18188580484" class="btn btn-primary btn-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
+              Call (818) 858-0484
+            </a>
+            <a href="contact.html" class="btn btn-outline btn-lg">Get a Free Quote</a>
+          </div>
+          <div class="hero-guarantee">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            If we can't find your leak — the inspection is <strong style="margin-left:4px;">FREE!</strong>
+          </div>
+        </div>
+
+        <!-- Hero Price Cards (right column) -->
+        <aside class="hero-pricing" aria-label="Inspection pricing">
+          <div class="hero-pricing-label">Upfront Pricing</div>
+
+          <a href="contact.html?service=pool" class="hero-price-card">
+            <div class="hpc-head">
+              <h3>Pool</h3>
+              <div class="hpc-amount"><sup>$</sup>195</div>
+            </div>
+            <div class="hpc-features">
+              <span>5-Point Analysis</span>
+              <span>90-Day Warranty</span>
+            </div>
+            <div class="hpc-cta">Book Now →</div>
           </a>
-          <a href="contact.html" class="btn btn-outline btn-lg">Get a Free Quote</a>
-        </div>
-        <div class="hero-guarantee">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-          If we can't find your leak — the inspection is <strong style="margin-left:4px;">FREE!</strong>
-        </div>
+
+          <a href="contact.html?service=pool-spa" class="hero-price-card featured">
+            <div class="hpc-badge">Most Popular</div>
+            <div class="hpc-head">
+              <h3>Pool &amp; Spa</h3>
+              <div class="hpc-amount"><sup>$</sup>250</div>
+            </div>
+            <div class="hpc-features">
+              <span>5-Point Analysis (Both)</span>
+              <span>90-Day Warranty</span>
+            </div>
+            <div class="hpc-cta">Book Now →</div>
+          </a>
+
+          <a href="contact.html?service=spa" class="hero-price-card">
+            <div class="hpc-head">
+              <h3>Spa</h3>
+              <div class="hpc-amount"><sup>$</sup>225</div>
+            </div>
+            <div class="hpc-features">
+              <span>5-Point Analysis</span>
+              <span>90-Day Warranty</span>
+            </div>
+            <div class="hpc-cta">Book Now →</div>
+          </a>
+
+          <p class="hero-pricing-foot">Free if we don't find your leak.</p>
+        </aside>
+
       </div>
     </section>
 
@@ -151,124 +335,97 @@
       </div>
     </div>
 
-    <!-- Pricing -->
-    <section class="section pricing" id="pricing" aria-label="Pricing">
+    <!-- Animated Explainer Video -->
+    <section class="section" id="see-how-it-works" style="background:var(--gray-light);" aria-label="How we find your leak">
       <div class="container text-center">
-        <span class="badge">Transparent Pricing</span>
-        <h2 class="section-title">Simple, <span>Upfront</span> Pricing</h2>
-        <p class="section-subtitle" style="margin:14px auto 0">No hidden fees. No surprises. Just honest, expert leak detection at a fair price.</p>
+        <span class="badge">60-Second Explainer</span>
+        <h2 class="section-title">See How We <span>Find Your Leak</span></h2>
+        <p class="section-subtitle" style="margin:14px auto 36px;max-width:640px;">Watch a one-minute walkthrough of our 5-point inspection — hydrophones, pressure testing, and dye tracing.</p>
 
-        <div class="pricing-grid">
-          <!-- Pool -->
-          <div class="pricing-card">
-            <div class="pricing-card-header"><h3>Pool</h3></div>
-            <div class="pricing-price">
-              <div class="amount"><sup>$</sup>195</div>
-              <div class="label">Leak Detection</div>
-            </div>
-            <ul class="pricing-features">
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                5-Point Leak Analysis
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                Written Leak Report
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                90-Day Warranty
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                Written Repair Estimates
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                Free if Leak Not Found
-              </li>
-            </ul>
-            <div class="pricing-cta">
-              <a href="contact.html?service=pool" class="btn btn-primary">Book Now</a>
+        <div class="explainer-stage" id="pli-stage" role="region" aria-label="Pool Leak Inspections animated explainer">
+          <div class="pli-controls"><button class="pli-ctrl" id="pli-replay" aria-label="Replay video">↻</button></div>
+
+          <div class="pli-scene pli-s1">
+            <div class="pli-scene-inner">
+              <svg class="pli-drop" viewBox="0 0 64 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M32 4 C 20 20, 14 34, 14 50 a18 18 0 0 0 36 0 c 0 -16 -6 -30 -18 -46 z" fill="#E8521A"/>
+                <ellipse cx="26" cy="50" rx="4" ry="8" fill="#ff8a5c" opacity="0.7"/>
+              </svg>
+              <h3 class="pli-h">Pool Losing Water?</h3>
+              <div class="pli-tag">If we can't find your leak — it's FREE.</div>
             </div>
           </div>
 
-          <!-- Pool & Spa FEATURED -->
-          <div class="pricing-card featured">
-            <div class="featured-badge">Most Popular</div>
-            <div class="pricing-card-header"><h3>Pool &amp; Spa</h3></div>
-            <div class="pricing-price">
-              <div class="amount"><sup>$</sup>250</div>
-              <div class="label">Leak Detection</div>
-            </div>
-            <ul class="pricing-features">
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                5-Point Leak Analysis (Pool + Spa)
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                Written Leak Report
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                90-Day Warranty
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                Written Repair Estimates
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                Free if Leak Not Found
-              </li>
-            </ul>
-            <div class="pricing-cta">
-              <a href="contact.html?service=pool-spa" class="btn btn-blue">Book Now</a>
+          <div class="pli-scene pli-s2">
+            <div class="pli-scene-inner">
+              <h3 class="pli-h">A hidden leak costs thousands.</h3>
+              <div class="pli-water"></div>
+              <div class="pli-dollars">💧 20,000+ gallons · 💰 $300+ water bill</div>
             </div>
           </div>
 
-          <!-- Spa -->
-          <div class="pricing-card" id="spa-card">
-            <div class="pricing-card-header"><h3>Spa</h3></div>
-            <div class="pricing-price">
-              <div class="amount"><sup>$</sup>225</div>
-              <div class="label">Leak Detection</div>
-            </div>
-            <ul class="pricing-features">
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                5-Point Leak Analysis
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                Written Leak Report
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                90-Day Warranty
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                Written Repair Estimates
-              </li>
-              <li>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                Free if Leak Not Found
-              </li>
-            </ul>
-            <div class="pricing-cta">
-              <a href="contact.html?service=spa" class="btn btn-primary">Book Now</a>
+          <div class="pli-scene pli-s3">
+            <div class="pli-scene-inner">
+              <h3 class="pli-h" style="font-size:clamp(1.1rem, 2.3vw, 1.5rem); opacity:0.9;">We use real tools — not guesses.</h3>
+              <div class="pli-methods">
+                <div class="pli-method">
+                  <div class="pli-micon"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 3c3 0 5 2 5 5v3h-2V8c0-2-1-3-3-3S9 6 9 8v3H7V8c0-3 2-5 5-5zm-5 10h10v8H7v-8zm3 2v4h4v-4h-4z"/></svg></div>
+                  <strong>HYDROPHONE</strong><span>Acoustic listening for underwater leaks</span>
+                </div>
+                <div class="pli-method">
+                  <div class="pli-micon"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l4 4-2 2 3 3-1.5 1.5L12 9l-2 2-4-4 6-5zM4 14h16v2H4v-2zm0 4h16v2H4v-2z"/></svg></div>
+                  <strong>PRESSURE TEST</strong><span>Isolates every plumbing line</span>
+                </div>
+                <div class="pli-method">
+                  <div class="pli-micon"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a7 7 0 00-7 7c0 3 7 13 7 13s7-10 7-13a7 7 0 00-7-7zm0 10a3 3 0 110-6 3 3 0 010 6z"/></svg></div>
+                  <strong>DYE TEST</strong><span>Confirms exact leak location</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="pricing-note">
-          <strong>Our Guarantee:</strong> If we can't find your leak, the inspection is completely free. No risk to you.
+          <div class="pli-scene pli-s4">
+            <div class="pli-scene-inner">
+              <h3 class="pli-h">Built on trust since 2004.</h3>
+              <div class="pli-chips">
+                <div class="pli-chip">✓ Licensed · CSLB #1061521</div>
+                <div class="pli-chip">✓ Fully Insured</div>
+                <div class="pli-chip">✓ 5,000+ Pools</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pli-scene pli-s5">
+            <div class="pli-scene-inner">
+              <div class="pli-guarantee">
+                <div class="pli-gbig">If we can't find your leak — you don't pay.</div>
+                <div class="pli-gsub">That's our promise. 20+ years and counting.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pli-scene pli-s6">
+            <div class="pli-scene-inner">
+              <div class="pli-cta-eyebrow">Call now for same-week scheduling:</div>
+              <a href="tel:+18188580484" class="pli-phone">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
+                (818) 858-0484
+              </a>
+              <a href="contact.html" class="pli-book">Or book a free quote online →</a>
+            </div>
+          </div>
+
+          <div class="pli-start" id="pli-start">
+            <button class="pli-playbtn" id="pli-play" aria-label="Play 60-second explainer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              Play 60-Second Explainer
+            </button>
+          </div>
+
+          <div class="pli-progress" id="pli-progress"></div>
         </div>
       </div>
     </section>
-
     <!-- How It Works -->
     <section class="section" style="background:var(--white);" aria-label="How it works">
       <div class="container text-center">
@@ -456,12 +613,12 @@
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
             </div>
-            <p>"As a real estate agent, I've referred Pool Leak Inspections to many clients. They found the leak in a Studio City property's pool and fountain within hours. Honest, fast, and professional every time."</p>
+            <p>"I am a real estate agent and was referred to Pool Leak Inspections by a friend. They've now saved two of my deals with fast, honest pool inspections inside the contingency window. Mike is the real deal."</p>
             <div class="testimonial-author">
-              <div class="author-avatar">S</div>
+              <div class="author-avatar">L</div>
               <div class="author-info">
-                <strong>Sarah K.</strong>
-                <span>Real Estate Agent, Studio City</span>
+                <strong>Laura D.</strong>
+                <span>Real Estate Agent, Los Angeles</span>
               </div>
             </div>
           </div>
@@ -474,12 +631,12 @@
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
             </div>
-            <p>"Only guys I trust with pool leak detection. Honest and saved me over $20,000 in potential pool repairs. Mike called to confirm, arrived exactly on time, asked all the right questions, and followed up. Exceptional service."</p>
+            <p>"It gets very hot in Woodland Hills during summer and our pool was losing water fast. Mike showed up on time, found the leak in under an hour, and walked us through the fix. Professional, thorough, and honest."</p>
             <div class="testimonial-author">
-              <div class="author-avatar">C</div>
+              <div class="author-avatar">F</div>
               <div class="author-info">
-                <strong>Carie T.</strong>
-                <span>Sherman Oaks, CA</span>
+                <strong>Fionna G.</strong>
+                <span>Woodland Hills, CA</span>
               </div>
             </div>
           </div>
@@ -561,14 +718,17 @@
             <img src="https://static.wixstatic.com/media/5e729e_a7894a8046254cdc8d244def959a9d24~mv2.png"
                  alt="Pool Leak Inspections" width="130" />
           </a>
-          <p>Licensed and insured pool leak detection specialists serving Los Angeles and Ventura County for over 20 years. If we can't find your leak, the inspection is FREE.</p>
+          <p>Licensed and insured pool leak detection specialists serving Los Angeles and Ventura County since 2004. If we can't find your leak, the inspection is FREE.</p>
+          <p style="margin-top:10px;font-size:0.8rem;opacity:0.7;">CSLB #1061521 · C-53 Swimming Pool/Spa</p>
         </div>
         <div class="footer-col">
           <h4>Quick Links</h4>
           <ul>
             <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="locations.html">Locations</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
             <li><a href="bucket-test.html">Bucket Test</a></li>
             <li><a href="blog.html">Blog</a></li>
             <li><a href="contact.html">Contact Us</a></li>
@@ -606,8 +766,8 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>&copy; 2025 Pool Leak Inspections. All rights reserved.</span>
-        <span>Licensed &amp; Insured | Serving Los Angeles &amp; Ventura County</span>
+        <span>&copy; 2026 Pool Leak Inspections. All rights reserved. &nbsp;|&nbsp; <a href="privacy.html" style="color:inherit;">Privacy</a> &nbsp;|&nbsp; <a href="terms.html" style="color:inherit;">Terms</a></span>
+        <span>Licensed &amp; Insured · CSLB #1061521 (C-53)</span>
       </div>
     </div>
   </footer>
@@ -617,6 +777,58 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
   </a>
 
-  <script src="js/main.js?v=4"></script>
+  <script src="js/main.js?v=6"></script>
+
+  <!-- Animated explainer player -->
+  <script>
+  (function() {
+    const stage = document.getElementById('pli-stage');
+    if (!stage) return;
+    const scenes = stage.querySelectorAll('.pli-scene');
+    const progress = document.getElementById('pli-progress');
+    const startOver = document.getElementById('pli-start');
+    const playBtn = document.getElementById('pli-play');
+    const replayBtn = document.getElementById('pli-replay');
+    const durations = [3200, 5500, 8500, 5000, 6000, 9000]; // ms, total ~37s (was 60s)
+    const total = durations.reduce((a,b) => a + b, 0);
+    let timeouts = [];
+    let rafId = null;
+    let startTime = 0;
+
+    function showScene(idx) {
+      scenes.forEach((s, i) => s.classList.toggle('active', i === idx));
+    }
+    function tickProgress() {
+      const elapsed = Date.now() - startTime;
+      progress.style.width = Math.min(100, (elapsed / total) * 100) + '%';
+      if (elapsed < total) rafId = requestAnimationFrame(tickProgress);
+    }
+    function clearTimers() {
+      timeouts.forEach(t => clearTimeout(t));
+      timeouts = [];
+      if (rafId) cancelAnimationFrame(rafId);
+    }
+    function play() {
+      clearTimers();
+      startOver.classList.add('hidden');
+      startTime = Date.now();
+      rafId = requestAnimationFrame(tickProgress);
+      let cumulative = 0;
+      scenes.forEach((_, i) => {
+        timeouts.push(setTimeout(() => showScene(i), cumulative));
+        cumulative += durations[i];
+      });
+    }
+    function reset() {
+      clearTimers();
+      progress.style.width = '0%';
+      showScene(0);
+      startOver.classList.remove('hidden');
+    }
+    playBtn.addEventListener('click', play);
+    replayBtn.addEventListener('click', () => { reset(); setTimeout(play, 200); });
+    showScene(0);
+  })();
+  </script>
 </body>
 </html>

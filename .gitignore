@@ -1,3 +1,7 @@
 .DS_Store
 *.log
 .vercel
+
+# Local image backups (not for production)
+images/*-BACKUP.*
+images/*-original-*.*

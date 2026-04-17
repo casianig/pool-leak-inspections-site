@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow common crawl-waste paths
+Disallow: /api/
+Disallow: /*?*
+
+Sitemap: https://www.poolleakinspections.com/sitemap.xml

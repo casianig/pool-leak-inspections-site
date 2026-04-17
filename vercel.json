@@ -8,32 +8,57 @@
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "X-XSS-Protection", "value": "1; mode=block" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()" }
       ]
     },
     {
       "source": "/css/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        { "key": "Cache-Control", "value": "public, max-age=2592000, stale-while-revalidate=86400" }
       ]
     },
     {
       "source": "/js/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        { "key": "Cache-Control", "value": "public, max-age=2592000, stale-while-revalidate=86400" }
+      ]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(favicon\\.svg|favicon\\.ico|apple-touch-icon\\.png)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800" }
+      ]
+    },
+    {
+      "source": "/(robots\\.txt|sitemap\\.xml)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" }
       ]
     }
   ],
   "rewrites": [
+    { "source": "/about", "destination": "/about.html" },
     { "source": "/services", "destination": "/services.html" },
     { "source": "/locations", "destination": "/locations.html" },
+    { "source": "/gallery", "destination": "/gallery.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/testimonials", "destination": "/testimonials.html" },
     { "source": "/bucket-test", "destination": "/bucket-test.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/terms", "destination": "/terms.html" },
     { "source": "/blog", "destination": "/blog.html" },
-    { "source": "/blog/:path", "destination": "/blog/:path.html" }
+    { "source": "/blog/:path", "destination": "/blog/:path.html" },
+    { "source": "/locations/:city", "destination": "/locations/:city.html" }
   ],
   "redirects": [
-    { "source": "/contact-us", "destination": "/contact", "permanent": true }
+    { "source": "/contact-us", "destination": "/contact", "permanent": true },
+    { "source": "/about-us", "destination": "/about", "permanent": true }
   ]
 }
