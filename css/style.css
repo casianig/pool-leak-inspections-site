@@ -1163,3 +1163,135 @@ textarea { resize: vertical; min-height: 120px; }
   .cookie-banner-btns { width: 100%; }
   .cookie-btn-accept, .cookie-btn-decline { flex: 1; text-align: center; }
 }
+
+/* ============================================================
+   Premium Animations & Transitions
+   ============================================================ */
+
+/* --- Keyframes --- */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Hero entrance (page load) --- */
+.hero-content {
+  animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-pricing {
+  animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+}
+.hero-bg {
+  animation: heroFadeIn 1.4s ease both;
+}
+
+/* --- Scroll reveal base states --- */
+.fade-in,
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fade-in.visible,
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Premium card hovers --- */
+.service-card,
+.case-card,
+.hero-price-card,
+.blog-card,
+.value-card,
+.stat-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.service-card:hover,
+.case-card:hover,
+.blog-card:hover,
+.value-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 56px rgba(0,0,0,0.13);
+}
+.hero-price-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.15);
+}
+
+/* --- Image zoom on hover --- */
+.case-ba figure img,
+.about-hero-img,
+.blog-card img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.case-ba:hover figure img,
+.blog-card:hover img {
+  transform: scale(1.04);
+}
+
+/* --- Trust bar items --- */
+.trust-item {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.trust-item:hover {
+  transform: translateY(-2px);
+  color: var(--orange);
+}
+
+/* --- Button transitions --- */
+.btn {
+  transition: background 0.28s ease, color 0.28s ease,
+              transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s ease !important;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+.btn:active {
+  transform: translateY(0);
+}
+
+/* --- Nav link underline slide --- */
+.main-nav a {
+  position: relative;
+}
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--orange);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.main-nav a:hover::after,
+.main-nav a.active::after {
+  width: 100%;
+}
+
+/* --- Section badge entrance --- */
+.badge {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.badge:hover {
+  transform: scale(1.04);
+}
+
+/* --- Stat strip counter animation readiness --- */
+.stat-num {
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+}
