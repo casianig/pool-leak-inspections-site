@@ -1190,7 +1190,37 @@ textarea { resize: vertical; min-height: 120px; }
   animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
 }
 .hero-bg {
-  animation: heroFadeIn 1.4s ease both;
+  filter: url(#water-ripple);
+  will-change: transform;
+  animation: heroFadeIn 1.4s ease both, heroBreathe 14s ease-in-out 1.4s infinite alternate;
+}
+/* Sunlight-on-water shimmer overlay */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -10% -10% -10% -10%;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 30% 22% at 28% 72%, rgba(170, 208, 255, 0.14), transparent 60%),
+    radial-gradient(ellipse 25% 18% at 68% 38%, rgba(255, 255, 255, 0.08), transparent 55%),
+    radial-gradient(ellipse 22% 20% at 50% 88%, rgba(170, 208, 255, 0.10), transparent 60%);
+  animation: heroShimmer 12s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+@keyframes heroBreathe {
+  0%   { transform: scale(1.02) translate(0, 0); }
+  50%  { transform: scale(1.04) translate(6px, -4px); }
+  100% { transform: scale(1.02) translate(-4px, 3px); }
+}
+@keyframes heroShimmer {
+  0%   { transform: translate(0, 0); opacity: 0.55; }
+  50%  { transform: translate(14px, -8px); opacity: 0.9; }
+  100% { transform: translate(-8px, 6px); opacity: 0.7; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg { filter: none; animation: heroFadeIn 1.4s ease both; }
+  .hero::before { animation: none; }
 }
 
 /* --- Scroll reveal base states --- */
