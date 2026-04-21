@@ -1190,34 +1190,23 @@ textarea { resize: vertical; min-height: 120px; }
   animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
 }
 .hero-bg {
-  -webkit-filter: url(#water-ripple);
-  filter: url(#water-ripple);
-  will-change: transform, filter;
-  animation: heroFadeIn 1.4s ease both, heroBreathe 10s ease-in-out 1.4s infinite alternate;
+  animation: heroFadeIn 1.4s ease both;
 }
-/* Sunlight-on-water shimmer overlay (always visible) */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: -10% -10% -10% -10%;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 32% 24% at 28% 72%, rgba(170, 208, 255, 0.22), transparent 60%),
-    radial-gradient(ellipse 28% 20% at 68% 38%, rgba(255, 255, 255, 0.16), transparent 55%),
-    radial-gradient(ellipse 25% 22% at 50% 88%, rgba(170, 208, 255, 0.18), transparent 60%);
-  animation: heroShimmer 9s ease-in-out infinite alternate;
-  mix-blend-mode: screen;
-}
-/* Diagonal light-streaks sweeping slowly — visible "water reflection" motion */
+/* Water-only shimmer overlay — positioned over just the pool water region */
 .hero-wave {
   position: absolute;
-  inset: 0;
+  left: 0;
+  right: 0;
+  top: 58%;      /* pool water starts around the lower half of the image */
+  bottom: 4%;    /* leave a little gap above the pool deck edge */
   z-index: 2;
   pointer-events: none;
   overflow: hidden;
-  opacity: 0.55;
-  mix-blend-mode: soft-light;
+  opacity: 0.7;
+  mix-blend-mode: screen;
+  /* Soft fade at top/bottom so the effect blends naturally into the pool */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0%, #000 15%, #000 85%, transparent 100%);
 }
 .hero-wave svg {
   position: absolute;
@@ -1226,19 +1215,8 @@ textarea { resize: vertical; min-height: 120px; }
   height: 100%;
   display: block;
 }
-@keyframes heroBreathe {
-  0%   { transform: scale(1.02) translate(0, 0); }
-  50%  { transform: scale(1.05) translate(10px, -6px); }
-  100% { transform: scale(1.02) translate(-6px, 4px); }
-}
-@keyframes heroShimmer {
-  0%   { transform: translate(0, 0); opacity: 0.6; }
-  50%  { transform: translate(22px, -14px); opacity: 1; }
-  100% { transform: translate(-14px, 10px); opacity: 0.75; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .hero-bg { filter: none; -webkit-filter: none; animation: heroFadeIn 1.4s ease both; }
-  .hero::before, .hero-wave { animation: none; }
+  .hero-wave { display: none; }
 }
 
 /* --- Scroll reveal base states --- */
