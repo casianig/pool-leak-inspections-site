@@ -35,7 +35,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css?v=7" />
+  <link rel="stylesheet" href="css/style.css?v=8" />
 
   <!-- Animated explainer styles -->
   <style>
@@ -189,14 +189,18 @@
 </head>
 <body>
 
-  <!-- SVG filter: subtle water-ripple distortion on hero-bg -->
-  <svg aria-hidden="true" width="0" height="0" style="position:absolute;pointer-events:none;">
+  <!-- SVG filter: water-ripple distortion on hero-bg (Safari-compatible) -->
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="1" height="1"
+       style="position:absolute;left:-9999px;top:-9999px;pointer-events:none;">
     <defs>
       <filter id="water-ripple" x="-5%" y="-5%" width="110%" height="110%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.013 0.022" numOctaves="2" seed="4" result="turb">
-          <animate attributeName="baseFrequency" dur="18s" values="0.013 0.022;0.016 0.025;0.013 0.022" repeatCount="indefinite" />
+        <feTurbulence type="fractalNoise" baseFrequency="0.011 0.02" numOctaves="2" seed="4" result="turb">
+          <animate attributeName="baseFrequency"
+                   dur="14s"
+                   values="0.010 0.020; 0.017 0.028; 0.012 0.022; 0.010 0.020"
+                   repeatCount="indefinite" />
         </feTurbulence>
-        <feDisplacementMap in="SourceGraphic" in2="turb" scale="6" xChannelSelector="R" yChannelSelector="G" />
+        <feDisplacementMap in="SourceGraphic" in2="turb" scale="14" xChannelSelector="R" yChannelSelector="G" />
       </filter>
     </defs>
   </svg>
@@ -254,6 +258,28 @@
     <!-- Hero -->
     <section class="hero" aria-label="Hero section">
       <div class="hero-bg" role="img" aria-label="Crystal clear swimming pool"></div>
+
+      <!-- Always-rendered animated water overlay (SVG turbulence) -->
+      <div class="hero-wave" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1200 800">
+          <defs>
+            <filter id="hero-noise" x="0" y="0" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.008 0.018" numOctaves="2" seed="7">
+                <animate attributeName="baseFrequency"
+                         dur="14s"
+                         values="0.008 0.018; 0.013 0.025; 0.009 0.019; 0.008 0.018"
+                         repeatCount="indefinite" />
+              </feTurbulence>
+              <feColorMatrix type="matrix" values="
+                0 0 0 0 0.67
+                0 0 0 0 0.82
+                0 0 0 0 1.00
+                0 0 0 0.9 0" />
+            </filter>
+          </defs>
+          <rect width="100%" height="100%" filter="url(#hero-noise)" />
+        </svg>
+      </div>
 
       <div class="hero-layout">
 
@@ -795,7 +821,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
   </a>
 
-  <script src="js/main.js?v=7"></script>
+  <script src="js/main.js?v=8"></script>
 
   <!-- Animated explainer player -->
   <script>
