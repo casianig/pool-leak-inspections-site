@@ -35,80 +35,300 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css?v=10" />
+  <link rel="stylesheet" href="css/style.css?v=24" />
 
-  <!-- Animated explainer styles -->
+  <!-- Animated explainer styles (rich, auto-looping) -->
   <style>
-    .explainer-stage { position: relative; width: 100%; max-width: 900px; margin: 0 auto; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden; background: linear-gradient(135deg, #0a1a34 0%, #1B4B8A 50%, #0a1a34 100%); box-shadow: 0 25px 60px rgba(10,26,52,0.35); color: #fff; }
-    .pli-scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: clamp(20px, 5vw, 50px); opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
-    .pli-scene.active { opacity: 1; pointer-events: auto; }
-    .pli-scene-inner { text-align: center; max-width: 760px; }
-    .pli-h { font-size: clamp(1.2rem, 3vw, 2rem); font-weight: 900; margin: 0 0 16px; color: #fff; line-height: 1.2; }
-    .pli-tag { font-size: clamp(0.9rem, 1.8vw, 1.2rem); color: #ff8a5c; font-weight: 700; }
+    /* Stage */
+    .explainer-stage {
+      position: relative; width: 100%; max-width: 960px; margin: 0 auto;
+      aspect-ratio: 16/9; border-radius: 22px; overflow: hidden; color: #fff;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(232,82,26,0.18), transparent 60%),
+        radial-gradient(circle at 85% 85%, rgba(27,75,138,0.35), transparent 60%),
+        linear-gradient(135deg, #0a1a34 0%, #122f5c 55%, #0a1a34 100%);
+      box-shadow: 0 30px 70px rgba(10,26,52,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .pli-scene {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      padding: clamp(20px, 4vw, 48px);
+      opacity: 0; transform: scale(1.03);
+      pointer-events: none;
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .pli-scene.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+    .pli-scene-inner { text-align: center; max-width: 800px; width: 100%; }
+    .pli-eyebrow {
+      display: inline-block; font-size: 0.72rem; font-weight: 900;
+      letter-spacing: 2.2px; text-transform: uppercase;
+      color: #ff8a5c; margin-bottom: 18px;
+      padding: 5px 14px; background: rgba(232,82,26,0.15);
+      border: 1px solid rgba(232,82,26,0.4); border-radius: 50px;
+    }
+    .pli-h {
+      font-size: clamp(1.4rem, 3vw, 2.4rem);
+      font-weight: 900; margin: 0 0 14px; color: #fff;
+      line-height: 1.15; letter-spacing: -0.5px;
+    }
+    .pli-h-accent, .pli-gbig-accent { color: #ff8a5c; }
+    .pli-tag {
+      font-size: clamp(0.88rem, 1.5vw, 1.05rem);
+      color: rgba(255,255,255,0.72); font-weight: 500;
+    }
 
-    /* S1 */
-    .pli-s1 .pli-drop { width: 72px; height: 90px; margin: 0 auto 16px; opacity: 0; transform: scale(0.5); transition: all 0.55s ease-out; }
-    .pli-s1.active .pli-drop { opacity: 1; transform: scale(1); }
-    .pli-s1 .pli-h, .pli-s1 .pli-tag { opacity: 0; transform: translateY(12px); transition: all 0.45s ease-out 0.25s; }
-    .pli-s1.active .pli-h, .pli-s1.active .pli-tag { opacity: 1; transform: translateY(0); }
-    .pli-s1 .pli-tag { transition-delay: 0.55s; color: #ff8a5c; }
+    /* Ambient bubbles — float up continuously */
+    .pli-particles { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .pli-bubble {
+      position: absolute; bottom: -20px;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), rgba(170,208,255,0.05) 60%);
+      box-shadow: 0 0 8px rgba(170,208,255,0.3);
+      animation: pliFloat linear infinite;
+      opacity: 0;
+    }
+    .pli-bubble:nth-child(1) { left:  8%; animation-duration: 16s; animation-delay: -2s; }
+    .pli-bubble:nth-child(2) { left: 22%; animation-duration: 14s; animation-delay: -6s; width: 6px; height: 6px; }
+    .pli-bubble:nth-child(3) { left: 38%; animation-duration: 20s; animation-delay: -10s; width: 14px; height: 14px; }
+    .pli-bubble:nth-child(4) { left: 52%; animation-duration: 17s; animation-delay: -3s; width: 8px; height: 8px; }
+    .pli-bubble:nth-child(5) { left: 66%; animation-duration: 22s; animation-delay: -8s; }
+    .pli-bubble:nth-child(6) { left: 78%; animation-duration: 15s; animation-delay: -12s; width: 6px; height: 6px; }
+    .pli-bubble:nth-child(7) { left: 88%; animation-duration: 18s; animation-delay: -5s; width: 12px; height: 12px; }
+    .pli-bubble:nth-child(8) { left: 94%; animation-duration: 13s; animation-delay: -14s; width: 5px; height: 5px; }
+    @keyframes pliFloat {
+      0%   { transform: translateY(0) translateX(0); opacity: 0; }
+      10%  { opacity: 0.7; }
+      50%  { transform: translateY(-50vh) translateX(8px); opacity: 0.9; }
+      100% { transform: translateY(-120vh) translateX(-8px); opacity: 0; }
+    }
 
-    /* S2 */
-    .pli-water { width: 70%; max-width: 340px; height: 130px; margin: 0 auto 18px; position: relative; border: 3px solid #fff; border-top: none; border-radius: 0 0 12px 12px; overflow: hidden; }
-    .pli-water::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(27,75,138,0.7)); transform: translateY(0); transition: transform 1.6s ease-in-out; }
-    .pli-s2.active .pli-water::before { transform: translateY(45%); }
-    .pli-dollars { font-size: clamp(0.9rem, 1.6vw, 1.05rem); color: #ff8a5c; opacity: 0; transition: opacity 0.45s ease 1s; }
-    .pli-s2.active .pli-dollars { opacity: 1; }
+    /* ==== S1: Title with ripple ==== */
+    .pli-drop-wrap { display: flex; justify-content: center; margin-bottom: 14px; }
+    .pli-drop-anim { width: clamp(100px, 16vw, 150px); height: auto; }
+    .pli-s1.active .pli-ripple-1 { animation: pliRipple 2.4s ease-out infinite; }
+    .pli-s1.active .pli-ripple-2 { animation: pliRipple 2.4s ease-out 0.8s infinite; }
+    .pli-s1.active .pli-ripple-3 { animation: pliRipple 2.4s ease-out 1.6s infinite; }
+    @keyframes pliRipple {
+      0%   { r: 20; opacity: 0.9; stroke-width: 3; }
+      100% { r: 75; opacity: 0; stroke-width: 0.5; }
+    }
 
-    /* S3 */
-    .pli-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
-    .pli-method { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 18px 12px; opacity: 0; transform: translateY(16px); transition: all 0.4s ease; }
-    .pli-method strong { display: block; font-size: 0.82rem; letter-spacing: 1px; margin-bottom: 4px; }
-    .pli-method span { font-size: 0.72rem; opacity: 0.7; line-height: 1.45; }
-    .pli-s3.active .pli-method:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
-    .pli-s3.active .pli-method:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
-    .pli-s3.active .pli-method:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
-    .pli-micon { width: 46px; height: 46px; margin: 0 auto 10px; background: linear-gradient(135deg, #E8521A, #ff8a5c); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    /* ==== S2: Pool draining + counting stats ==== */
+    .pli-pool-drain {
+      max-width: 420px; margin: 0 auto 22px; opacity: 0.95;
+    }
+    .pli-pool-drain svg { width: 100%; height: auto; }
+    .pli-pool-water {
+      transform-origin: bottom;
+      transform: scaleY(1);
+      transition: transform 3.5s ease-in-out;
+    }
+    .pli-s2.active .pli-pool-water { transform: scaleY(0.55); }
+    .pli-stats {
+      display: flex; justify-content: center; gap: clamp(14px, 3vw, 40px); flex-wrap: wrap;
+    }
+    .pli-stat { display: flex; flex-direction: column; align-items: center; min-width: 80px; }
+    .pli-stat-n {
+      font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+      font-weight: 900; color: #ff8a5c; line-height: 1;
+      letter-spacing: -0.5px; font-variant-numeric: tabular-nums;
+    }
+    .pli-stat-l {
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+      color: rgba(255,255,255,0.7); margin-top: 6px; font-weight: 600;
+    }
 
-    /* S4 */
-    .pli-chips { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
-    .pli-chip { background: rgba(232,82,26,0.18); border: 1.5px solid #E8521A; color: #ff8a5c; padding: 10px 18px; border-radius: 50px; font-weight: 700; font-size: 0.88rem; opacity: 0; transform: scale(0.8); transition: all 0.35s ease; }
-    .pli-s4.active .pli-chip:nth-child(1) { opacity: 1; transform: scale(1); transition-delay: 0.1s; }
-    .pli-s4.active .pli-chip:nth-child(2) { opacity: 1; transform: scale(1); transition-delay: 0.35s; }
-    .pli-s4.active .pli-chip:nth-child(3) { opacity: 1; transform: scale(1); transition-delay: 0.6s; }
+    /* ==== S3: 5-point checklist ==== */
+    .pli-check {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 10px;
+      max-width: 440px; margin-left: auto; margin-right: auto;
+      text-align: left;
+    }
+    .pli-check-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      opacity: 0; transform: translateX(-14px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .pli-s3.active .pli-check-item { opacity: 1; transform: translateX(0); transition-delay: var(--d); }
+    .pli-check-dot {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--orange); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; box-shadow: 0 0 0 4px rgba(232,82,26,0.2);
+    }
+    .pli-check-dot svg { width: 14px; height: 14px; }
+    .pli-check-item strong {
+      display: block; font-size: 0.92rem; font-weight: 800; color: #fff; margin-bottom: 2px;
+    }
+    .pli-check-item span {
+      font-size: 0.78rem; color: rgba(255,255,255,0.7);
+    }
 
-    /* S5 */
-    .pli-guarantee { background: #E8521A; border-radius: 16px; padding: clamp(28px, 5vw, 42px) clamp(20px, 4vw, 30px); max-width: 540px; margin: 0 auto; box-shadow: 0 18px 50px rgba(232,82,26,0.4); transform: scale(0.9); opacity: 0; transition: all 0.5s ease; }
-    .pli-s5.active .pli-guarantee { transform: scale(1); opacity: 1; }
-    .pli-gbig { font-size: clamp(1.2rem, 2.8vw, 1.8rem); font-weight: 900; line-height: 1.25; margin-bottom: 8px; }
-    .pli-gsub { font-size: 0.95rem; opacity: 0.9; }
+    /* ==== S4: Scanner visual ==== */
+    .pli-scanner {
+      position: relative; max-width: 460px; margin: 0 auto 16px;
+    }
+    .pli-scanner svg { width: 100%; height: auto; display: block; }
+    .pli-scan-line {
+      animation: pliScanMove 2.4s ease-in-out infinite alternate;
+    }
+    .pli-scan-glow {
+      animation: pliScanMove 2.4s ease-in-out infinite alternate;
+    }
+    @keyframes pliScanMove {
+      from { transform: translateX(0); }
+      to   { transform: translateX(310px); }
+    }
+    .pli-leak-point {
+      opacity: 0; transform-origin: center; transform-box: fill-box;
+    }
+    .pli-s4.active .pli-leak-point { animation: pliLeakReveal 0.5s ease-out 1.8s forwards; }
+    .pli-leak-ring { animation-name: pliLeakRing !important; animation-duration: 1.4s !important; animation-iteration-count: infinite !important; }
+    @keyframes pliLeakReveal {
+      0%   { opacity: 0; transform: scale(0.3); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .pli-s4.active .pli-leak-ring { animation: pliLeakReveal 0.5s ease-out 1.8s forwards, pliLeakRing 1.4s ease-out 2.3s infinite; }
+    @keyframes pliLeakRing {
+      0%   { opacity: 0.9; transform: scale(1); }
+      100% { opacity: 0; transform: scale(2.2); }
+    }
+    .pli-scan-label {
+      position: absolute; top: 10px; right: 10px;
+      font-size: 0.7rem; font-weight: 900; letter-spacing: 1.2px;
+      background: #ef4444; color: #fff; padding: 5px 10px; border-radius: 50px;
+      opacity: 0;
+      box-shadow: 0 4px 14px rgba(239,68,68,0.5);
+    }
+    .pli-s4.active .pli-scan-label { animation: pliPopIn 0.5s ease-out 2.2s forwards; }
+    @keyframes pliPopIn {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .pli-scan-caption {
+      font-size: 0.9rem; color: rgba(255,255,255,0.72); max-width: 440px; margin: 0 auto; line-height: 1.5;
+    }
 
-    /* S6 */
-    .pli-cta-eyebrow { font-size: clamp(0.95rem, 1.8vw, 1.15rem); opacity: 0.75; margin-bottom: 18px; }
-    .pli-phone { display: inline-flex; align-items: center; gap: 12px; background: #E8521A; color: #fff; padding: 18px 32px; border-radius: 12px; font-size: clamp(1.2rem, 2.5vw, 1.7rem); font-weight: 900; text-decoration: none; box-shadow: 0 14px 36px rgba(232,82,26,0.5); transform: scale(0.9); opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.3s; }
-    .pli-s6.active .pli-phone { transform: scale(1); opacity: 1; }
-    .pli-s6.active .pli-phone:hover { transform: scale(1.04); box-shadow: 0 18px 40px rgba(232,82,26,0.6); }
-    .pli-book { display: block; color: #aad0ff; margin-top: 18px; font-size: 0.93rem; opacity: 0; transition: opacity 0.35s ease 0.5s; text-decoration: none; }
-    .pli-s6.active .pli-book { opacity: 1; }
-    .pli-book:hover { text-decoration: underline; }
+    /* ==== S5: KPI counters ==== */
+    .pli-kpis {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+      max-width: 680px; margin: 0 auto;
+    }
+    .pli-kpi {
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 18px 10px 14px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .pli-kpi-n {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 900; color: #ff8a5c; line-height: 1;
+      font-variant-numeric: tabular-nums; letter-spacing: -0.5px;
+    }
+    .pli-kpi-suffix {
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      font-weight: 900; color: #ff8a5c; margin-left: 2px;
+    }
+    .pli-kpi-suffix.pli-star { color: #FBBC04; }
+    .pli-kpi-l {
+      font-size: 0.7rem; font-weight: 700; color: rgba(255,255,255,0.7);
+      text-transform: uppercase; letter-spacing: 0.8px; margin-top: 8px;
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .pli-kpis { grid-template-columns: repeat(2, 1fr); }
+    }
 
-    /* Controls / progress / start overlay */
-    .pli-progress { position: absolute; bottom: 0; left: 0; height: 4px; background: #E8521A; width: 0%; transition: width 0.3s linear; z-index: 3; }
-    .pli-controls { position: absolute; top: 14px; right: 14px; display: flex; gap: 8px; z-index: 3; }
-    .pli-ctrl { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.18); color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(6px); }
-    .pli-ctrl:hover { background: rgba(232,82,26,0.85); }
-    .pli-start { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(10,26,52,0.82); backdrop-filter: blur(6px); z-index: 4; transition: opacity 0.4s ease; }
-    .pli-start.hidden { opacity: 0; pointer-events: none; }
-    .pli-playbtn { background: #E8521A; color: #fff; border: 0; padding: 18px 34px; border-radius: 50px; font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 0 10px 28px rgba(232,82,26,0.5); display: flex; align-items: center; gap: 12px; font-family: inherit; }
-    .pli-playbtn:hover { transform: scale(1.04); }
-    .pli-playbtn svg { width: 20px; height: 20px; }
+    /* ==== S6: Guarantee ==== */
+    .pli-guarantee {
+      background: linear-gradient(135deg, #E8521A 0%, #ff7a3d 100%);
+      border-radius: 20px;
+      padding: clamp(32px, 5vw, 48px) clamp(22px, 4vw, 40px);
+      max-width: 560px; margin: 0 auto;
+      box-shadow: 0 24px 60px rgba(232,82,26,0.45), inset 0 1px 0 rgba(255,255,255,0.3);
+      transform: scale(0.9); opacity: 0;
+      transition: all 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .pli-s6.active .pli-guarantee { transform: scale(1); opacity: 1; }
+    .pli-gshield {
+      width: 54px; height: 54px; border-radius: 50%;
+      background: rgba(255,255,255,0.2); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px;
+    }
+    .pli-gshield svg { width: 28px; height: 28px; color: #fff; }
+    .pli-gbig {
+      font-size: clamp(1.4rem, 3.2vw, 2.1rem);
+      font-weight: 900; line-height: 1.2; margin-bottom: 8px; color: #fff;
+    }
+    .pli-gbig-accent { color: #fff; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 3px; }
+    .pli-gsub {
+      font-size: 0.95rem; color: rgba(255,255,255,0.9); font-weight: 600;
+    }
+
+    /* ==== S7: CTA ==== */
+    .pli-cta-eyebrow {
+      font-size: clamp(0.8rem, 1.6vw, 0.95rem);
+      color: rgba(255,255,255,0.75); font-weight: 600;
+      margin-bottom: 20px; letter-spacing: 0.3px;
+    }
+    .pli-phone {
+      position: relative;
+      display: inline-flex; align-items: center; gap: 12px;
+      background: linear-gradient(135deg, #E8521A 0%, #ff7a3d 100%);
+      color: #fff; padding: 20px 38px;
+      border-radius: 14px;
+      font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+      font-weight: 900; text-decoration: none;
+      box-shadow: 0 18px 44px rgba(232,82,26,0.55);
+      transform: scale(0.9); opacity: 0;
+      transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s;
+      letter-spacing: 0.2px;
+    }
+    .pli-s7.active .pli-phone { transform: scale(1); opacity: 1; }
+    .pli-s7.active .pli-phone:hover { transform: scale(1.04); box-shadow: 0 22px 50px rgba(232,82,26,0.65); }
+    .pli-phone-pulse {
+      position: absolute; inset: -4px;
+      border-radius: 18px;
+      border: 2px solid #ff8a5c;
+      opacity: 0;
+    }
+    .pli-s7.active .pli-phone-pulse { animation: pliPhonePulse 1.8s ease-out infinite; }
+    @keyframes pliPhonePulse {
+      0%   { opacity: 0.8; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.15); }
+    }
+    .pli-book {
+      display: block; color: #aad0ff; margin-top: 20px;
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; opacity: 0;
+      transition: opacity 0.5s ease 0.6s;
+    }
+    .pli-s7.active .pli-book { opacity: 1; }
+    .pli-book:hover { color: #fff; text-decoration: underline; }
+
+    /* Progress bar */
+    .pli-progress {
+      position: absolute; bottom: 0; left: 0;
+      height: 3px; background: linear-gradient(90deg, #E8521A, #ff7a3d);
+      width: 0%;
+      z-index: 3;
+      box-shadow: 0 0 12px rgba(255,138,92,0.6);
+    }
 
     @media (max-width: 640px) {
       .explainer-stage { aspect-ratio: 4/5; }
-      .pli-methods { grid-template-columns: 1fr; gap: 8px; }
-      .pli-method { padding: 10px 12px; display: flex; align-items: center; gap: 12px; text-align: left; }
-      .pli-method .pli-micon { margin: 0; width: 38px; height: 38px; flex-shrink: 0; }
-      .pli-chip { padding: 8px 14px; font-size: 0.8rem; }
+      .pli-kpis { gap: 8px; }
+      .pli-check-item { padding: 8px 12px; gap: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pli-bubble, .pli-ripple-1, .pli-ripple-2, .pli-ripple-3,
+      .pli-scan-line, .pli-scan-glow, .pli-phone-pulse { animation: none !important; }
     }
   </style>
 
@@ -326,160 +546,228 @@
     </section>
 
     <!-- Trust Bar -->
-    <div class="trust-bar" aria-label="Trust indicators">
+    <div class="trust-bar section-reveal" aria-label="Trust indicators">
       <div class="trust-bar-inner">
         <div class="trust-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
           Licensed &amp; Insured
         </div>
         <div class="trust-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm.5 5v6l4.3 2.55-.75 1.3L11 14V7h1.5z"/></svg>
           20+ Years Experience
         </div>
         <div class="trust-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2M9 5h6m-3 8l2 2 4-4"/></svg>
           90-Day Warranty
         </div>
         <div class="trust-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
           5-Star Rated
         </div>
         <div class="trust-item">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>
           Same-Week Appointments
         </div>
       </div>
     </div>
 
-    <!-- Animated Explainer Video -->
-    <section class="section" id="see-how-it-works" style="background:var(--gray-light);" aria-label="How we find your leak">
+    <!-- Animated Explainer Video — auto-loop, premium visuals -->
+    <section class="section section-reveal" id="see-how-it-works" style="background:var(--gray-light);" aria-label="How we find your leak">
       <div class="container text-center">
-        <span class="badge">60-Second Explainer</span>
+        <span class="badge">Watch How It Works</span>
         <h2 class="section-title">See How We <span>Find Your Leak</span></h2>
-        <p class="section-subtitle" style="margin:14px auto 36px;max-width:640px;">Watch a one-minute walkthrough of our 5-point inspection — hydrophones, pressure testing, and dye tracing.</p>
+        <p class="section-subtitle" style="margin:14px auto 36px;max-width:640px;">A one-minute visual of our 5-point leak inspection — hydrophones, pressure testing, and dye tracing, no decks torn up.</p>
 
         <div class="explainer-stage" id="pli-stage" role="region" aria-label="Pool Leak Inspections animated explainer">
-          <div class="pli-controls"><button class="pli-ctrl" id="pli-replay" aria-label="Replay video">↻</button></div>
 
+          <!-- Ambient particles/bubbles -->
+          <div class="pli-particles" aria-hidden="true">
+            <span class="pli-bubble" style="--i:1;"></span>
+            <span class="pli-bubble" style="--i:2;"></span>
+            <span class="pli-bubble" style="--i:3;"></span>
+            <span class="pli-bubble" style="--i:4;"></span>
+            <span class="pli-bubble" style="--i:5;"></span>
+            <span class="pli-bubble" style="--i:6;"></span>
+            <span class="pli-bubble" style="--i:7;"></span>
+            <span class="pli-bubble" style="--i:8;"></span>
+          </div>
+
+          <!-- SCENE 1 — Title / brand -->
           <div class="pli-scene pli-s1">
             <div class="pli-scene-inner">
-              <svg class="pli-drop" viewBox="0 0 64 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M32 4 C 20 20, 14 34, 14 50 a18 18 0 0 0 36 0 c 0 -16 -6 -30 -18 -46 z" fill="#E8521A"/>
-                <ellipse cx="26" cy="50" rx="4" ry="8" fill="#ff8a5c" opacity="0.7"/>
-              </svg>
-              <h3 class="pli-h">Pool Losing Water?</h3>
-              <div class="pli-tag">Licensed specialists. Advanced equipment.</div>
+              <div class="pli-drop-wrap">
+                <svg class="pli-drop-anim" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle class="pli-ripple pli-ripple-1" cx="100" cy="100" r="20" fill="none" stroke="#E8521A" stroke-width="2"/>
+                  <circle class="pli-ripple pli-ripple-2" cx="100" cy="100" r="20" fill="none" stroke="#E8521A" stroke-width="2"/>
+                  <circle class="pli-ripple pli-ripple-3" cx="100" cy="100" r="20" fill="none" stroke="#E8521A" stroke-width="2"/>
+                  <path d="M100 48 C 82 72, 72 90, 72 112 a28 28 0 0 0 56 0 c 0 -22 -10 -40 -28 -64 z" fill="#E8521A"/>
+                  <ellipse cx="88" cy="115" rx="6" ry="14" fill="#ffb38a" opacity="0.7"/>
+                </svg>
+              </div>
+              <h3 class="pli-h">Your Pool Is Leaking.<br><span class="pli-h-accent">We'll Find It.</span></h3>
+              <div class="pli-tag">Since 2004 · Los Angeles &amp; Ventura County</div>
             </div>
           </div>
 
+          <!-- SCENE 2 — The cost -->
           <div class="pli-scene pli-s2">
             <div class="pli-scene-inner">
-              <h3 class="pli-h">A hidden leak costs thousands.</h3>
-              <div class="pli-water"></div>
-              <div class="pli-dollars">💧 20,000+ gallons · 💰 $300+ water bill</div>
+              <div class="pli-eyebrow">The Hidden Cost</div>
+              <div class="pli-pool-drain" aria-hidden="true">
+                <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                  <!-- pool outline -->
+                  <path d="M20 40 L20 180 L380 180 L380 40" fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
+                  <!-- water gradient -->
+                  <defs>
+                    <linearGradient id="pliWater" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#aad0ff" stop-opacity="0.45"/>
+                      <stop offset="1" stop-color="#1B4B8A" stop-opacity="0.85"/>
+                    </linearGradient>
+                  </defs>
+                  <rect class="pli-pool-water" x="22" y="55" width="356" height="123" fill="url(#pliWater)"/>
+                  <!-- Original water-line indicator -->
+                  <line x1="20" y1="55" x2="380" y2="55" stroke="#ff8a5c" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.75"/>
+                  <text x="30" y="49" fill="#ff8a5c" font-size="10" font-weight="800" letter-spacing="1">WAS HERE</text>
+                </svg>
+              </div>
+              <div class="pli-stats">
+                <div class="pli-stat"><span class="pli-stat-n" data-count="20000">0</span><span class="pli-stat-l">Gallons lost</span></div>
+                <div class="pli-stat"><span class="pli-stat-n">$<span data-count="340">0</span></span><span class="pli-stat-l">Extra bill</span></div>
+                <div class="pli-stat"><span class="pli-stat-n" data-count="6">0</span><span class="pli-stat-l">Months unnoticed</span></div>
+              </div>
             </div>
           </div>
 
+          <!-- SCENE 3 — 5-Point Analysis checklist -->
           <div class="pli-scene pli-s3">
             <div class="pli-scene-inner">
-              <h3 class="pli-h" style="font-size:clamp(1.1rem, 2.3vw, 1.5rem); opacity:0.9;">We use real tools — not guesses.</h3>
-              <div class="pli-methods">
-                <div class="pli-method">
-                  <div class="pli-micon"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 3c3 0 5 2 5 5v3h-2V8c0-2-1-3-3-3S9 6 9 8v3H7V8c0-3 2-5 5-5zm-5 10h10v8H7v-8zm3 2v4h4v-4h-4z"/></svg></div>
-                  <strong>HYDROPHONE</strong><span>Acoustic listening for underwater leaks</span>
-                </div>
-                <div class="pli-method">
-                  <div class="pli-micon"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2l4 4-2 2 3 3-1.5 1.5L12 9l-2 2-4-4 6-5zM4 14h16v2H4v-2zm0 4h16v2H4v-2z"/></svg></div>
-                  <strong>PRESSURE TEST</strong><span>Isolates every plumbing line</span>
-                </div>
-                <div class="pli-method">
-                  <div class="pli-micon"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a7 7 0 00-7 7c0 3 7 13 7 13s7-10 7-13a7 7 0 00-7-7zm0 10a3 3 0 110-6 3 3 0 010 6z"/></svg></div>
-                  <strong>DYE TEST</strong><span>Confirms exact leak location</span>
-                </div>
-              </div>
+              <div class="pli-eyebrow">Our 5-Point Leak Analysis</div>
+              <ul class="pli-check">
+                <li class="pli-check-item" style="--d:0.1s;"><span class="pli-check-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg></span><div><strong>Pressure Test</strong><span>All plumbing lines isolated &amp; tested</span></div></li>
+                <li class="pli-check-item" style="--d:0.55s;"><span class="pli-check-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg></span><div><strong>Hydrophone Scan</strong><span>Acoustic listening under water</span></div></li>
+                <li class="pli-check-item" style="--d:1.0s;"><span class="pli-check-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg></span><div><strong>Dye Tracing</strong><span>Pinpoint exact leak location</span></div></li>
+                <li class="pli-check-item" style="--d:1.45s;"><span class="pli-check-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg></span><div><strong>Skimmer &amp; Fittings</strong><span>Full visual inspection</span></div></li>
+                <li class="pli-check-item" style="--d:1.9s;"><span class="pli-check-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg></span><div><strong>Shell &amp; Plaster</strong><span>Structural scan for cracks</span></div></li>
+              </ul>
             </div>
           </div>
 
+          <!-- SCENE 4 — Scan-in-action visual -->
           <div class="pli-scene pli-s4">
             <div class="pli-scene-inner">
-              <h3 class="pli-h">Built on trust since 2004.</h3>
-              <div class="pli-chips">
-                <div class="pli-chip">✓ Licensed · CSLB #1061521</div>
-                <div class="pli-chip">✓ Fully Insured</div>
-                <div class="pli-chip">✓ 5,000+ Pools</div>
+              <div class="pli-eyebrow">Scanning for the Leak</div>
+              <div class="pli-scanner" aria-hidden="true">
+                <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+                  <!-- pool cross-section -->
+                  <rect x="20" y="30" width="360" height="200" rx="6" fill="#0a1a34" stroke="#1B4B8A" stroke-width="2"/>
+                  <rect x="22" y="50" width="356" height="178" fill="url(#pliWater)"/>
+                  <!-- leak point (hidden until "found") -->
+                  <circle class="pli-leak-point" cx="268" cy="190" r="8" fill="#ef4444"/>
+                  <circle class="pli-leak-point pli-leak-ring" cx="268" cy="190" r="18" fill="none" stroke="#ef4444" stroke-width="2"/>
+                  <!-- scanning line -->
+                  <line class="pli-scan-line" x1="40" y1="30" x2="40" y2="230" stroke="#00ffcc" stroke-width="2" stroke-linecap="round"/>
+                  <line class="pli-scan-glow"  x1="40" y1="30" x2="40" y2="230" stroke="#00ffcc" stroke-width="14" stroke-linecap="round" opacity="0.25"/>
+                </svg>
+                <div class="pli-scan-label">LEAK DETECTED</div>
               </div>
+              <div class="pli-scan-caption">Hydrophone acoustics + pressure test triangulate the leak in under an hour.</div>
             </div>
           </div>
 
+          <!-- SCENE 5 — Numbers / credentials -->
           <div class="pli-scene pli-s5">
             <div class="pli-scene-inner">
-              <div class="pli-guarantee">
-                <div class="pli-gbig">If we can't find your leak — you don't pay.</div>
-                <div class="pli-gsub">That's our promise. 20+ years and counting.</div>
+              <div class="pli-eyebrow">Numbers That Matter</div>
+              <div class="pli-kpis">
+                <div class="pli-kpi"><span class="pli-kpi-n" data-count="5000">0</span><span class="pli-kpi-suffix">+</span><span class="pli-kpi-l">Pools inspected</span></div>
+                <div class="pli-kpi"><span class="pli-kpi-n">20</span><span class="pli-kpi-suffix">+</span><span class="pli-kpi-l">Years in LA</span></div>
+                <div class="pli-kpi"><span class="pli-kpi-n">4.9</span><span class="pli-kpi-suffix pli-star">★</span><span class="pli-kpi-l">Google rating</span></div>
+                <div class="pli-kpi"><span class="pli-kpi-n">$0</span><span class="pli-kpi-suffix">&nbsp;</span><span class="pli-kpi-l">If no leak found</span></div>
               </div>
             </div>
           </div>
 
+          <!-- SCENE 6 — Guarantee -->
           <div class="pli-scene pli-s6">
             <div class="pli-scene-inner">
-              <div class="pli-cta-eyebrow">Call now for same-week scheduling:</div>
+              <div class="pli-guarantee">
+                <div class="pli-gshield">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                </div>
+                <div class="pli-gbig">Can't find it? <br><span class="pli-gbig-accent">You pay $0.</span></div>
+                <div class="pli-gsub">20 years, same promise, still standing.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCENE 7 — CTA -->
+          <div class="pli-scene pli-s7">
+            <div class="pli-scene-inner">
+              <div class="pli-cta-eyebrow">Same-week appointments · Licensed CSLB #1061521</div>
               <a href="tel:+18188580484" class="pli-phone">
+                <span class="pli-phone-pulse" aria-hidden="true"></span>
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
                 (818) 858-0484
               </a>
-              <a href="contact.html" class="pli-book">Or book a free quote online →</a>
+              <a href="contact.html" class="pli-book">Or request a free quote online →</a>
             </div>
           </div>
 
-          <div class="pli-start" id="pli-start">
-            <button class="pli-playbtn" id="pli-play" aria-label="Play 60-second explainer">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-              Play 60-Second Explainer
-            </button>
-          </div>
-
+          <!-- Progress bar -->
           <div class="pli-progress" id="pli-progress"></div>
         </div>
       </div>
     </section>
-    <!-- How It Works -->
-    <section class="section" style="background:var(--white);" aria-label="How it works">
-      <div class="container text-center">
-        <span class="badge">Simple Process</span>
-        <h2 class="section-title">How It <span>Works</span></h2>
-        <p class="section-subtitle" style="margin:14px auto 0">Getting your pool inspected is quick and easy. Here's what to expect.</p>
+    <!-- How It Works — modernized process -->
+    <section class="section how-it-works section-reveal" aria-label="How it works">
+      <div class="container">
+        <div class="text-center">
+          <span class="badge">Simple Process</span>
+          <h2 class="section-title">How It <span>Works</span></h2>
+          <p class="section-subtitle" style="margin:14px auto 0">From booking to report in three steps — most of our customers finish the process within a single week.</p>
+        </div>
 
-        <div class="steps-wrapper">
-          <div class="steps-track"><div class="steps-track-fill"></div></div>
-          <div class="steps-grid">
-            <div class="step">
-              <div class="step-num">1</div>
+        <div class="process">
+          <!-- animated connector -->
+          <div class="process-line" aria-hidden="true"><div class="process-line-fill"></div></div>
+
+          <div class="process-grid">
+
+            <!-- Step 1 -->
+            <article class="process-card" data-step="01">
+              <div class="pc-num">01</div>
               <h3>Book Your Inspection</h3>
               <p>Call us or fill out our online form. We'll schedule a convenient time — often same week or next day.</p>
-            </div>
-            <div class="step-arrow">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-            <div class="step">
-              <div class="step-num">2</div>
+              <div class="pc-meta">
+                <span class="pc-chip">⚡ Usually &lt; 5 min</span>
+                <span class="pc-chip">Same-week available</span>
+              </div>
+            </article>
+
+            <!-- Step 2 -->
+            <article class="process-card" data-step="02">
+              <div class="pc-num">02</div>
               <h3>We Find the Leak</h3>
-              <p>Our expert arrives on time and uses advanced hydrophone technology and dye testing to pinpoint the exact leak location.</p>
-            </div>
-            <div class="step-arrow">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            </div>
-            <div class="step">
-              <div class="step-num">3</div>
+              <p>Our expert arrives on time and uses hydrophone technology, pressure testing, and dye tracing to pinpoint the exact leak — without destruction.</p>
+              <div class="pc-meta">
+                <span class="pc-chip">⏱ 1–3 hours on-site</span>
+                <span class="pc-chip">No digging</span>
+              </div>
+            </article>
+
+            <!-- Step 3 -->
+            <article class="process-card" data-step="03">
+              <div class="pc-num">03</div>
               <h3>You Get a Full Report</h3>
-              <p>Receive a detailed written report with the leak location and a transparent repair estimate — no upselling, no surprises.</p>
-            </div>
+              <p>Detailed written report with the leak location plus a transparent repair estimate. No upselling, no surprises, no pressure.</p>
+              <div class="pc-meta">
+                <span class="pc-chip">📄 Written findings</span>
+                <span class="pc-chip">90-day warranty</span>
+              </div>
+            </article>
+
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Services Overview -->
-    <section class="section" style="background:var(--gray-light);" aria-label="Our services">
+    <!-- Services Overview — bento grid -->
+    <section class="section services-bento-section section-reveal" style="background:var(--gray-light);" aria-label="Our services">
       <div class="container">
         <div class="text-center">
           <span class="badge">What We Do</span>
@@ -487,55 +775,57 @@
           <p class="section-subtitle" style="margin:14px auto 0">From detection to repair — we handle it all.</p>
         </div>
 
-        <div class="services-grid" style="margin-top:50px;">
-          <div class="service-card reveal" data-delay="1">
-            <div class="service-icon">
-              <!-- Magnifying glass = searching for leaks -->
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <div class="services-bento">
+
+          <!-- FEATURED: Leak Detection (big card, spans 2 cols x 2 rows) -->
+          <a href="services.html#leak-detection" class="service-bento featured">
+            <div class="sb-bg"></div>
+            <div class="sb-content">
+              <div class="sb-eyebrow">
+                <span class="sb-dot"></span>
+                OUR CORE SERVICE
+              </div>
+              <h3>Pool Leak Detection</h3>
+              <p>Hydrophone acoustic listening, pressure testing, and dye tracing — we pinpoint every leak <strong>without tearing up your deck</strong> or guessing. If we can't find it, you don't pay.</p>
+              <ul class="sb-bullets">
+                <li><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg> 5-point leak analysis</li>
+                <li><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg> Written report + repair estimate</li>
+                <li><svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg> No-find, no-fee guarantee</li>
+              </ul>
+              <div class="sb-cta">Learn more <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div>
             </div>
-            <h3>Leak Detection</h3>
-            <p>Using hydrophone technology and pressure testing, we locate leaks in pool structure, plumbing, and fittings with pinpoint accuracy.</p>
-          </div>
-          <div class="service-card reveal" data-delay="2">
-            <div class="service-icon">
-              <!-- Wrench = plumbing repairs -->
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
-            </div>
-            <h3>Plumbing Repairs</h3>
-            <p>We repair and replace damaged underground or above-ground pool plumbing to stop leaks at the source permanently.</p>
-          </div>
-          <div class="service-card reveal" data-delay="3">
-            <div class="service-icon">
-              <!-- Filter/grid = skimmer (filters water) -->
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A.998.998 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/></svg>
-            </div>
-            <h3>Skimmer Replacement</h3>
-            <p>Cracked or leaking skimmers are a common culprit. We replace them correctly to ensure a watertight seal.</p>
-          </div>
-          <div class="service-card reveal" data-delay="1">
-            <div class="service-icon">
-              <!-- Brush/trowel = plaster work -->
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37l-1.34-1.34a1 1 0 0 0-1.41 0L9 12.25 11.75 15l8.96-8.96a1 1 0 0 0 0-1.41z"/></svg>
-            </div>
-            <h3>Plaster Repairs</h3>
-            <p>We patch and repair cracks and deteriorating plaster in pool shells to prevent water loss and further structural damage.</p>
-          </div>
-          <div class="service-card reveal" data-delay="2">
-            <div class="service-icon">
-              <!-- Build/hammer = structural crack sealing -->
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.78 15.3L19.78 21.3L21.89 19.14L15.89 13.14L13.78 15.3ZM17.5 10.1C17.11 10.1 16.69 10.05 16.36 9.96L4.97 21.35L2.86 19.24L10.27 11.83L8.5 10.06L9.21 9.35L4.97 5.11C4.97 5.11 6.26 3.83 8.5 3.83C10.23 3.83 12.08 4.92 13.1 6.5L9.04 10.56L10.5 12L14.56 7.94C15.7 8.5 17.12 9.03 17.5 10.1Z"/></svg>
-            </div>
-            <h3>Crack Repairs</h3>
-            <p>Structural cracks are sealed using professional-grade materials for a long-lasting repair that holds up year after year.</p>
-          </div>
-          <div class="service-card reveal" data-delay="3">
-            <div class="service-icon">
-              <!-- Hot tub/water waves = spa -->
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10h-4V7h-2v3H7c-2.76 0-5 2.24-5 5v2h20v-2c0-2.76-2.24-5-5-5zM5 10V5h2v5h2V4h2v6h2V5h2v5h2V3h2v7h1c1.66 0 3 1.34 3 3v.5H2V13c0-1.66 1.34-3 3-3h1V5h2v5H5z"/><path d="M2 19h20v2H2z"/></svg>
-            </div>
+          </a>
+
+          <!-- Spa Leak Detection (col 3, row 1) -->
+          <a href="services.html#spa" class="service-bento accent">
             <h3>Spa Leak Detection</h3>
-            <p>Spas and hot tubs require specialised inspection. We check jets, plumbing lines, and shell integrity thoroughly.</p>
-          </div>
+            <p>Jets, plumbing lines, and shell integrity — spas get a dedicated inspection pass.</p>
+          </a>
+
+          <!-- Plumbing (col 3, row 2) -->
+          <a href="services.html#plumbing" class="service-bento">
+            <h3>Plumbing Repairs</h3>
+            <p>Damaged pool plumbing repaired permanently — underground or surface.</p>
+          </a>
+
+          <!-- Skimmer -->
+          <a href="services.html#skimmer" class="service-bento">
+            <h3>Skimmer Replacement</h3>
+            <p>Cracked skimmer throats are a top leak source. We rebuild them watertight.</p>
+          </a>
+
+          <!-- Plaster -->
+          <a href="services.html#plaster" class="service-bento">
+            <h3>Plaster Repairs</h3>
+            <p>Deteriorating shells patched with pool-grade plaster to stop the loss.</p>
+          </a>
+
+          <!-- Crack -->
+          <a href="services.html#crack" class="service-bento">
+            <h3>Crack Repairs</h3>
+            <p>Structural cracks sealed with pro-grade materials — long-lasting.</p>
+          </a>
+
         </div>
 
         <div class="text-center" style="margin-top:44px;">
@@ -545,177 +835,304 @@
     </section>
 
     <!-- Why Choose Us -->
-    <section class="section why-us" aria-label="Why choose us">
+    <section class="section why-us section-reveal" aria-label="Why choose us">
       <div class="container">
+        <!-- Top row: text on left, photo on right (top-aligned with title) -->
         <div class="why-grid">
           <div class="why-content">
-            <span class="badge">Why Pool Leak Inspections?</span>
-            <h2 class="section-title">The <span>Trusted</span> Name in LA Pool Leak Detection</h2>
-            <p class="section-subtitle">For over 20 years, homeowners and real estate professionals across Los Angeles and Ventura County have trusted us to find and fix pool leaks fast.</p>
-
-            <div class="why-list">
-              <div class="why-item">
-                <div class="why-item-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-                </div>
-                <div>
-                  <h4>Licensed &amp; Fully Insured</h4>
-                  <p>We carry all required California contractor licenses and full liability insurance for your peace of mind.</p>
-                </div>
-              </div>
-              <div class="why-item">
-                <div class="why-item-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M9 11.93l-3.36-3.36-1.41 1.41 4.77 4.77 9.9-9.9-1.41-1.41L9 11.93z"/></svg>
-                </div>
-                <div>
-                  <h4>Advanced Detection Technology</h4>
-                  <p>We use hydrophone listening devices and infrared cameras to detect leaks non-invasively, without tearing up your yard.</p>
-                </div>
-              </div>
-              <div class="why-item">
-                <div class="why-item-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg>
-                </div>
-                <div>
-                  <h4>No-Find, No-Fee Guarantee</h4>
-                  <p>If our experts can't locate your leak, you pay nothing. We stand behind our work completely.</p>
-                </div>
-              </div>
-              <div class="why-item">
-                <div class="why-item-icon">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M14 6l-1-2H5v17h2v-7h5l1 2h7V6h-6zm4 8h-4l-1-2H7V6h5l1 2h5v6z"/></svg>
-                </div>
-                <div>
-                  <h4>Trusted by Real Estate Pros</h4>
-                  <p>Agents and buyers across LA rely on us for pre-sale and pre-purchase pool inspections before closing.</p>
-                </div>
-              </div>
-            </div>
+            <span class="badge">Why Homeowners Choose Us</span>
+            <h2 class="section-title">Two Decades of Finding<br>What <span>Other Companies Miss</span></h2>
+            <p class="section-subtitle">Since 2004, we've inspected <strong>thousands of pools</strong> across Los Angeles and Ventura County — for homeowners, real estate agents, and property managers who need the truth about their pool fast.</p>
           </div>
           <div class="why-image">
             <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80"
                  alt="Professional pool leak inspection technician at work"
                  loading="lazy" />
+            <!-- Floating overlay card on top of the image -->
+            <div class="why-image-badge">
+              <div class="wib-row">
+                <svg viewBox="0 0 24 24" fill="#FBBC04" width="18" height="18"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24" fill="#FBBC04" width="18" height="18"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24" fill="#FBBC04" width="18" height="18"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24" fill="#FBBC04" width="18" height="18"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <svg viewBox="0 0 24 24" fill="#FBBC04" width="18" height="18"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              </div>
+              <div class="wib-stat"><strong>4.9</strong> on Google</div>
+              <div class="wib-sub">200+ verified reviews</div>
+            </div>
           </div>
         </div>
+
+        <!-- Bottom row: 4 cards spanning full width -->
+        <div class="why-list">
+
+          <div class="why-item">
+            <div>
+              <h4>Licensed, Bonded &amp; Fully Insured</h4>
+              <p>California State Contractor License <strong>#1061521</strong> (C-53 Swimming Pool/Spa). Full liability coverage on every job — not a loophole, not a technicality.</p>
+              <span class="why-stat">CSLB #1061521 · C-53</span>
+            </div>
+          </div>
+
+          <div class="why-item">
+            <div>
+              <h4>Real Equipment, Not Guesses</h4>
+              <p>Hydrophones, pressure testing, dye tracing, and infrared cameras — we find the leak <strong>before</strong> any jackhammer comes out. No torn-up decks. No "exploratory digging."</p>
+              <span class="why-stat">5-point leak analysis</span>
+            </div>
+          </div>
+
+          <div class="why-item">
+            <div>
+              <h4>If We Don't Find It, You Pay Nothing</h4>
+              <p>Simple as that. We show up, run the full inspection, and if there's no leak to find — <strong>you owe us $0</strong>. Twenty years of that promise, still standing.</p>
+              <span class="why-stat">$0 if no leak found</span>
+            </div>
+          </div>
+
+          <div class="why-item">
+            <div>
+              <h4>The Realtor's Secret Weapon</h4>
+              <p>LA real estate agents keep us on speed-dial. <strong>Same-week pre-purchase inspections</strong> inside your contingency window, with written reports that hold up in escrow. No excuses, no delays.</p>
+              <span class="why-stat">Same-week pre-sale reports</span>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="section testimonials" aria-label="Customer testimonials">
-      <div class="container text-center">
-        <span class="badge">What Our Clients Say</span>
-        <h2 class="section-title">Trusted by <span>Hundreds</span> of LA Pool Owners</h2>
-        <p class="section-subtitle" style="margin:14px auto 0">Don't take our word for it — hear from homeowners and real estate professionals we've helped.</p>
+    <!-- Testimonials — Google-review-style -->
+    <section class="section reviews-section section-reveal" aria-label="Customer testimonials">
+      <div class="container">
 
-        <div class="testimonials-grid" style="margin-top:50px;">
-          <div class="testimonial-card">
-            <div class="stars">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            </div>
-            <p>"Thanks to Mike, our dream of having our pool back became a reality. He explained every step, worked within our budget, and now our yard is an oasis again. I would recommend Pool Leak Inspections to anyone."</p>
-            <div class="testimonial-author">
-              <div class="author-avatar">E</div>
-              <div class="author-info">
-                <strong>Elijah M.</strong>
-                <span>Los Angeles, CA</span>
-              </div>
+        <div class="text-center">
+          <span class="badge">What Our Clients Say</span>
+          <h2 class="section-title">Trusted by <span>Hundreds</span> of LA Pool Owners</h2>
+          <p class="section-subtitle" style="margin:14px auto 0">Real reviews from homeowners and real estate pros across LA &amp; Ventura County.</p>
+        </div>
+
+        <!-- Aggregate rating banner -->
+        <div class="rating-banner">
+          <div class="rb-brand">
+            <svg class="rb-google" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="Google">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            <div>
+              <div class="rb-title">Rated <strong>4.9 / 5</strong> on Google</div>
+              <div class="rb-meta">Based on 200+ verified reviews</div>
             </div>
           </div>
-
-          <div class="testimonial-card">
-            <div class="stars">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          <div class="rb-stars">
+            <div class="rb-star-row">
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
             </div>
-            <p>"I am a real estate agent and was referred to Pool Leak Inspections by a friend. They've now saved two of my deals with fast, honest pool inspections inside the contingency window. Mike is the real deal."</p>
-            <div class="testimonial-author">
-              <div class="author-avatar">L</div>
-              <div class="author-info">
-                <strong>Laura D.</strong>
-                <span>Real Estate Agent, Los Angeles</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="stars">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-            </div>
-            <p>"It gets very hot in Woodland Hills during summer and our pool was losing water fast. Mike showed up on time, found the leak in under an hour, and walked us through the fix. Professional, thorough, and honest."</p>
-            <div class="testimonial-author">
-              <div class="author-avatar">F</div>
-              <div class="author-info">
-                <strong>Fionna G.</strong>
-                <span>Woodland Hills, CA</span>
-              </div>
-            </div>
+            <a href="https://www.google.com/maps" target="_blank" rel="noopener" class="rb-cta">See all reviews on Google <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg></a>
           </div>
         </div>
 
-        <div style="margin-top:36px;">
+        <!-- Review cards — asymmetric bento-ish -->
+        <div class="reviews-grid">
+
+          <!-- Featured big review -->
+          <article class="review-card featured">
+            <header class="rc-head">
+              <div class="rc-avatar" style="background:#4285F4;">L</div>
+              <div class="rc-meta">
+                <div class="rc-name">Laura D.</div>
+                <div class="rc-sub">Real Estate Agent · Los Angeles</div>
+              </div>
+              <svg class="rc-google" viewBox="0 0 24 24" aria-label="Google review">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+            </header>
+            <div class="rc-stars">
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <span class="rc-date">a month ago</span>
+            </div>
+            <p class="rc-quote">"I am a real estate agent and was referred to Pool Leak Inspections by a friend. They've now saved two of my deals with fast, honest pool inspections inside the contingency window. <strong>Mike is the real deal</strong> — shows up on time, gives a clear written report, and never upsells. Highly recommend for any LA realtor dealing with a pool property."</p>
+            <div class="rc-tag">Real Estate · Pre-Purchase Inspection</div>
+          </article>
+
+          <!-- Second review -->
+          <article class="review-card">
+            <header class="rc-head">
+              <div class="rc-avatar" style="background:#EA4335;">E</div>
+              <div class="rc-meta">
+                <div class="rc-name">Elijah M.</div>
+                <div class="rc-sub">Los Angeles, CA</div>
+              </div>
+              <svg class="rc-google" viewBox="0 0 24 24" aria-label="Google review">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+            </header>
+            <div class="rc-stars">
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <span class="rc-date">3 weeks ago</span>
+            </div>
+            <p class="rc-quote">"Thanks to Mike, our pool is back to being the oasis we wanted. He explained every step, worked within our budget, and the repair has held up perfectly."</p>
+            <div class="rc-tag">Homeowner · Leak + Repair</div>
+          </article>
+
+          <!-- Third review -->
+          <article class="review-card">
+            <header class="rc-head">
+              <div class="rc-avatar" style="background:#34A853;">F</div>
+              <div class="rc-meta">
+                <div class="rc-name">Fionna G.</div>
+                <div class="rc-sub">Woodland Hills, CA</div>
+              </div>
+              <svg class="rc-google" viewBox="0 0 24 24" aria-label="Google review">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+            </header>
+            <div class="rc-stars">
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#FBBC04"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <span class="rc-date">6 weeks ago</span>
+            </div>
+            <p class="rc-quote">"Pool was losing water fast in the summer heat. Mike showed up on time, found the leak in under an hour, and walked us through the fix. Professional and honest."</p>
+            <div class="rc-tag">Homeowner · Same-Week Fix</div>
+          </article>
+
+        </div>
+
+        <div class="text-center" style="margin-top:36px;">
           <a href="testimonials.html" class="btn btn-blue">Read More Reviews</a>
         </div>
+
       </div>
     </section>
 
     <!-- Locations Strip -->
-    <section class="locations-strip" aria-label="Service areas">
-      <div class="container text-center">
-        <span class="badge">Service Areas</span>
-        <h2 class="section-title" style="color:var(--white);">We Serve All of <span>Los Angeles</span> &amp; Ventura County</h2>
-        <p class="section-subtitle" style="margin:14px auto 0;color:rgba(255,255,255,0.6);">Serving 30+ cities across the greater Los Angeles area.</p>
+    <section class="locations-strip section-reveal" aria-label="Service areas">
+      <!-- Decorative background pattern -->
+      <div class="ls-bg" aria-hidden="true">
+        <div class="ls-glow ls-glow-1"></div>
+        <div class="ls-glow ls-glow-2"></div>
+      </div>
 
-        <div class="locations-grid">
-          <a href="contact.html?city=Agoura+Hills" class="location-pill">Agoura Hills</a>
-          <a href="contact.html?city=Bel+Air" class="location-pill">Bel Air</a>
-          <a href="contact.html?city=Beverly+Hills" class="location-pill">Beverly Hills</a>
-          <a href="contact.html?city=Brentwood" class="location-pill">Brentwood</a>
-          <a href="contact.html?city=Burbank" class="location-pill">Burbank</a>
-          <a href="contact.html?city=Calabasas" class="location-pill">Calabasas</a>
-          <a href="contact.html?city=Camarillo" class="location-pill">Camarillo</a>
-          <a href="contact.html?city=Chatsworth" class="location-pill">Chatsworth</a>
-          <a href="contact.html?city=Culver+City" class="location-pill">Culver City</a>
-          <a href="contact.html?city=Encino" class="location-pill">Encino</a>
-          <a href="contact.html?city=Glendale" class="location-pill">Glendale</a>
-          <a href="contact.html?city=Granada+Hills" class="location-pill">Granada Hills</a>
-          <a href="contact.html?city=Los+Angeles" class="location-pill">Los Angeles</a>
-          <a href="contact.html?city=Moorpark" class="location-pill">Moorpark</a>
-          <a href="contact.html?city=North+Hollywood" class="location-pill">North Hollywood</a>
-          <a href="contact.html?city=Northridge" class="location-pill">Northridge</a>
-          <a href="contact.html?city=Oxnard" class="location-pill">Oxnard</a>
-          <a href="contact.html?city=Pacific+Palisades" class="location-pill">Pacific Palisades</a>
-          <a href="contact.html?city=Reseda" class="location-pill">Reseda</a>
-          <a href="contact.html?city=Santa+Barbara" class="location-pill">Santa Barbara</a>
-          <a href="contact.html?city=Santa+Clarita" class="location-pill">Santa Clarita</a>
-          <a href="contact.html?city=Santa+Monica" class="location-pill">Santa Monica</a>
-          <a href="contact.html?city=Sherman+Oaks" class="location-pill">Sherman Oaks</a>
-          <a href="contact.html?city=Simi+Valley" class="location-pill">Simi Valley</a>
-          <a href="contact.html?city=Studio+City" class="location-pill">Studio City</a>
-          <a href="contact.html?city=Tarzana" class="location-pill">Tarzana</a>
-          <a href="contact.html?city=Thousand+Oaks" class="location-pill">Thousand Oaks</a>
-          <a href="contact.html?city=Van+Nuys" class="location-pill">Van Nuys</a>
-          <a href="contact.html?city=Ventura" class="location-pill">Ventura</a>
-          <a href="contact.html?city=West+Hills" class="location-pill">West Hills</a>
-          <a href="contact.html?city=Westlake+Village" class="location-pill">Westlake Village</a>
-          <a href="contact.html?city=Woodland+Hills" class="location-pill">Woodland Hills</a>
+      <div class="container">
+        <div class="text-center">
+          <span class="badge">Service Areas</span>
+          <h2 class="section-title" style="color:var(--white);">We Serve All of <span>Los Angeles</span> &amp; Ventura County</h2>
+          <p class="section-subtitle" style="margin:14px auto 0;color:rgba(255,255,255,0.65);">Licensed, insured, and local — with 30+ cities covered across the greater LA area.</p>
         </div>
+
+        <!-- Stat strip -->
+        <div class="ls-stats">
+          <div class="ls-stat">
+            <div class="ls-stat-num">30+</div>
+            <div class="ls-stat-label">Cities covered</div>
+          </div>
+          <div class="ls-stat-divider" aria-hidden="true"></div>
+          <div class="ls-stat">
+            <div class="ls-stat-num">Same-Week</div>
+            <div class="ls-stat-label">Appointments</div>
+          </div>
+          <div class="ls-stat-divider" aria-hidden="true"></div>
+          <div class="ls-stat">
+            <div class="ls-stat-num">Since 2004</div>
+            <div class="ls-stat-label">Serving LA &amp; Ventura</div>
+          </div>
+        </div>
+
+        <!-- Regional groups -->
+        <div class="ls-regions">
+
+          <!-- LA County -->
+          <div class="ls-region">
+            <div class="ls-region-head">
+              <svg class="ls-region-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <h3>Los Angeles County</h3>
+              <span class="ls-region-count">24 cities</span>
+            </div>
+            <div class="locations-grid">
+              <a href="locations/beverly-hills.html" class="location-pill featured"><span>Beverly Hills</span></a>
+              <a href="locations/santa-monica.html" class="location-pill featured"><span>Santa Monica</span></a>
+              <a href="locations/sherman-oaks.html" class="location-pill featured"><span>Sherman Oaks</span></a>
+              <a href="locations/encino.html" class="location-pill featured"><span>Encino</span></a>
+              <a href="locations/calabasas.html" class="location-pill featured"><span>Calabasas</span></a>
+              <a href="locations/studio-city.html" class="location-pill featured"><span>Studio City</span></a>
+              <a href="locations/woodland-hills.html" class="location-pill"><span>Woodland Hills</span></a>
+              <a href="locations/pacific-palisades.html" class="location-pill"><span>Pacific Palisades</span></a>
+              <a href="locations/glendale.html" class="location-pill"><span>Glendale</span></a>
+              <a href="locations/burbank.html" class="location-pill"><span>Burbank</span></a>
+              <a href="locations/brentwood.html" class="location-pill"><span>Brentwood</span></a>
+              <a href="contact.html?city=Bel+Air" class="location-pill"><span>Bel Air</span></a>
+              <a href="contact.html?city=Agoura+Hills" class="location-pill"><span>Agoura Hills</span></a>
+              <a href="contact.html?city=Chatsworth" class="location-pill"><span>Chatsworth</span></a>
+              <a href="contact.html?city=Culver+City" class="location-pill"><span>Culver City</span></a>
+              <a href="contact.html?city=Granada+Hills" class="location-pill"><span>Granada Hills</span></a>
+              <a href="contact.html?city=Los+Angeles" class="location-pill"><span>Los Angeles</span></a>
+              <a href="contact.html?city=North+Hollywood" class="location-pill"><span>North Hollywood</span></a>
+              <a href="contact.html?city=Northridge" class="location-pill"><span>Northridge</span></a>
+              <a href="contact.html?city=Reseda" class="location-pill"><span>Reseda</span></a>
+              <a href="contact.html?city=Santa+Clarita" class="location-pill"><span>Santa Clarita</span></a>
+              <a href="contact.html?city=Tarzana" class="location-pill"><span>Tarzana</span></a>
+              <a href="contact.html?city=Van+Nuys" class="location-pill"><span>Van Nuys</span></a>
+              <a href="contact.html?city=West+Hills" class="location-pill"><span>West Hills</span></a>
+            </div>
+          </div>
+
+          <!-- Ventura County -->
+          <div class="ls-region">
+            <div class="ls-region-head">
+              <svg class="ls-region-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              <h3>Ventura County</h3>
+              <span class="ls-region-count">7 cities</span>
+            </div>
+            <div class="locations-grid">
+              <a href="locations/thousand-oaks.html" class="location-pill featured"><span>Thousand Oaks</span></a>
+              <a href="contact.html?city=Westlake+Village" class="location-pill"><span>Westlake Village</span></a>
+              <a href="contact.html?city=Simi+Valley" class="location-pill"><span>Simi Valley</span></a>
+              <a href="contact.html?city=Moorpark" class="location-pill"><span>Moorpark</span></a>
+              <a href="contact.html?city=Camarillo" class="location-pill"><span>Camarillo</span></a>
+              <a href="contact.html?city=Oxnard" class="location-pill"><span>Oxnard</span></a>
+              <a href="contact.html?city=Ventura" class="location-pill"><span>Ventura</span></a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Fallback CTA -->
+        <div class="ls-fallback">
+          <p>Don't see your city? <a href="tel:+18188580484">Call us at (818) 858-0484</a> — we may still be able to help.</p>
+        </div>
+
       </div>
     </section>
 
     <!-- CTA Banner -->
-    <section class="cta-banner" aria-label="Call to action">
+    <section class="cta-banner section-reveal" aria-label="Call to action">
       <div class="container">
         <h2>Is Your Pool Losing Water?</h2>
         <p>Don't wait — a small leak can cost thousands in water bills and structural damage. Call us today for a fast, accurate inspection.</p>
@@ -799,57 +1216,84 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
   </a>
 
-  <script src="js/main.js?v=10"></script>
+  <script src="js/main.js?v=24"></script>
 
-  <!-- Animated explainer player -->
+  <!-- Animated explainer player — autoplay + continuous loop -->
   <script>
   (function() {
     const stage = document.getElementById('pli-stage');
     if (!stage) return;
     const scenes = stage.querySelectorAll('.pli-scene');
     const progress = document.getElementById('pli-progress');
-    const startOver = document.getElementById('pli-start');
-    const playBtn = document.getElementById('pli-play');
-    const replayBtn = document.getElementById('pli-replay');
-    const durations = [3200, 5500, 8500, 5000, 6000, 9000]; // ms, total ~37s (was 60s)
+    // 7 scenes: title, cost, checklist, scanner, kpis, guarantee, cta
+    const durations = [3500, 6000, 9500, 7000, 5500, 5000, 5500]; // ms, total ~42s
     const total = durations.reduce((a,b) => a + b, 0);
-    let timeouts = [];
+    let sceneTimeouts = [];
     let rafId = null;
-    let startTime = 0;
+    let loopStart = 0;
+    let kpiAnimated = false;
+    let statsAnimated = false;
 
     function showScene(idx) {
       scenes.forEach((s, i) => s.classList.toggle('active', i === idx));
+      // Trigger counters when their scene activates
+      if (idx === 1 && !statsAnimated) { statsAnimated = true; animateCounters('.pli-s2 [data-count]'); }
+      if (idx === 4 && !kpiAnimated)   { kpiAnimated = true;   animateCounters('.pli-s5 [data-count]'); }
     }
-    function tickProgress() {
-      const elapsed = Date.now() - startTime;
-      progress.style.width = Math.min(100, (elapsed / total) * 100) + '%';
-      if (elapsed < total) rafId = requestAnimationFrame(tickProgress);
-    }
-    function clearTimers() {
-      timeouts.forEach(t => clearTimeout(t));
-      timeouts = [];
-      if (rafId) cancelAnimationFrame(rafId);
-    }
-    function play() {
-      clearTimers();
-      startOver.classList.add('hidden');
-      startTime = Date.now();
-      rafId = requestAnimationFrame(tickProgress);
-      let cumulative = 0;
-      scenes.forEach((_, i) => {
-        timeouts.push(setTimeout(() => showScene(i), cumulative));
-        cumulative += durations[i];
+
+    function animateCounters(selector) {
+      document.querySelectorAll(selector).forEach(function(el) {
+        const target = parseInt(el.getAttribute('data-count'), 10);
+        const dur = 1200;
+        const start = performance.now();
+        function step(now) {
+          const t = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+          const val = Math.round(target * eased);
+          el.textContent = val.toLocaleString();
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
       });
     }
-    function reset() {
-      clearTimers();
-      progress.style.width = '0%';
-      showScene(0);
-      startOver.classList.remove('hidden');
+
+    function tickProgress(now) {
+      const elapsed = (now - loopStart) % total;
+      progress.style.width = ((elapsed / total) * 100) + '%';
+      rafId = requestAnimationFrame(tickProgress);
     }
-    playBtn.addEventListener('click', play);
-    replayBtn.addEventListener('click', () => { reset(); setTimeout(play, 200); });
-    showScene(0);
+
+    function runLoop() {
+      // Clear any pending scene timeouts
+      sceneTimeouts.forEach(clearTimeout);
+      sceneTimeouts = [];
+      // Reset counter flags so they re-animate on next cycle
+      statsAnimated = false;
+      kpiAnimated = false;
+
+      // Schedule each scene
+      let cumulative = 0;
+      scenes.forEach(function(_, i) {
+        sceneTimeouts.push(setTimeout(function() { showScene(i); }, cumulative));
+        cumulative += durations[i];
+      });
+      // Schedule next loop iteration
+      sceneTimeouts.push(setTimeout(runLoop, total));
+    }
+
+    // Start as soon as the stage is in the viewport (saves CPU when off-screen)
+    const startWhenVisible = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loopStart = performance.now();
+          rafId = requestAnimationFrame(tickProgress);
+          showScene(0);
+          runLoop();
+          startWhenVisible.disconnect();
+        }
+      });
+    }, { threshold: 0.25 });
+    startWhenVisible.observe(stage);
   })();
   </script>
 </body>

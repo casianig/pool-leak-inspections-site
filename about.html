@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=10" />
+  <link rel="stylesheet" href="css/style.css?v=24" />
 
   <!-- Breadcrumb schema -->
   <script type="application/ld+json">
@@ -62,22 +62,185 @@
     .stat-label { color: #64748b; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; }
     @media (max-width: 640px) { .stat-strip { grid-template-columns: repeat(2, 1fr); } .stat-item:nth-child(3) { border-right: none; } .stat-item:nth-child(3), .stat-item:nth-child(4) { border-top: 1px solid #e5e7eb; } .stat-item:nth-child(5), .stat-item:nth-child(6) { border-top: 1px solid #e5e7eb; } .stat-item:nth-child(4) { border-right: 1px solid #e5e7eb; } }
 
-    /* Timeline — year fully visible, dot in gap */
-    .timeline { position: relative; max-width: 720px; margin: 40px auto 0; }
-    .timeline-item { display: grid; grid-template-columns: 56px 1fr; gap: 36px; padding-bottom: 32px; position: relative; }
-    .timeline-item::before { content: ''; position: absolute; left: 56px; top: 26px; bottom: -6px; width: 2px; background: #e5e7eb; transform: translateX(17px); }
-    .timeline-item:last-child::before { display: none; }
-    .timeline-year { font-weight: 900; color: var(--orange); font-size: 0.82rem; letter-spacing: 0.5px; padding-top: 6px; text-align: right; position: relative; white-space: nowrap; }
-    .timeline-year::after { content: ''; position: absolute; right: -25px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--orange); border: 2.5px solid var(--white); box-shadow: 0 0 0 2px var(--orange); }
+    /* Timeline — animated on scroll */
+    .timeline {
+      position: relative;
+      max-width: 720px;
+      margin: 50px auto 0;
+    }
+    /* Vertical line behind all items — single element so we can animate it drawing from top */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 73px;                 /* aligns with dot position */
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: #e5e7eb;
+      z-index: 0;
+    }
+    .timeline::after {
+      content: '';
+      position: absolute;
+      left: 73px;
+      top: 8px;
+      width: 2px;
+      height: 0;
+      background: linear-gradient(180deg, var(--orange) 0%, #ff7a3d 100%);
+      z-index: 1;
+      box-shadow: 0 0 12px rgba(232,82,26,0.45);
+      transition: height 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+    }
+    .timeline.visible::after { height: calc(100% - 16px); }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 36px;
+      padding-bottom: 32px;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translateX(-24px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .timeline.visible .timeline-item { opacity: 1; transform: translateX(0); }
+    .timeline.visible .timeline-item:nth-child(1) { transition-delay: 0.35s; }
+    .timeline.visible .timeline-item:nth-child(2) { transition-delay: 0.7s; }
+    .timeline.visible .timeline-item:nth-child(3) { transition-delay: 1.05s; }
+    .timeline.visible .timeline-item:nth-child(4) { transition-delay: 1.4s; }
+    .timeline.visible .timeline-item:nth-child(5) { transition-delay: 1.75s; }
+
+    .timeline-year {
+      font-weight: 900;
+      color: var(--orange);
+      font-size: 0.82rem;
+      letter-spacing: 0.5px;
+      padding-top: 6px;
+      text-align: right;
+      position: relative;
+      white-space: nowrap;
+    }
+    /* Year dot — pops in with its item */
+    .timeline-year::after {
+      content: '';
+      position: absolute;
+      right: -25px;
+      top: 8px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--orange);
+      border: 3px solid #f3f4f6;
+      box-shadow: 0 0 0 2px var(--orange), 0 4px 10px rgba(232,82,26,0.4);
+      transform: scale(0);
+      transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .timeline.visible .timeline-item:nth-child(1) .timeline-year::after { transition-delay: 0.55s; transform: scale(1); }
+    .timeline.visible .timeline-item:nth-child(2) .timeline-year::after { transition-delay: 0.9s;  transform: scale(1); }
+    .timeline.visible .timeline-item:nth-child(3) .timeline-year::after { transition-delay: 1.25s; transform: scale(1); }
+    .timeline.visible .timeline-item:nth-child(4) .timeline-year::after { transition-delay: 1.6s;  transform: scale(1); }
+    .timeline.visible .timeline-item:nth-child(5) .timeline-year::after { transition-delay: 1.95s; transform: scale(1); }
+    /* Pulse ring on the active/most recent year */
+    .timeline.visible .timeline-item:last-child .timeline-year::before {
+      content: '';
+      position: absolute;
+      right: -28px; top: 5px;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--orange);
+      opacity: 0;
+      animation: tlPulse 2s ease-out 2.3s infinite;
+    }
+    @keyframes tlPulse {
+      0%   { transform: scale(0.6); opacity: 0.9; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
     .timeline-content h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; padding-top: 2px; }
     .timeline-content p { color: var(--gray); line-height: 1.65; font-size: 0.93rem; }
-    @media (max-width: 560px) { .timeline-item { grid-template-columns: 44px 1fr; gap: 28px; } .timeline-item::before { left: 44px; transform: translateX(13px); } .timeline-year::after { right: -20px; } }
+    @media (max-width: 560px) {
+      .timeline-item { grid-template-columns: 44px 1fr; gap: 28px; }
+      .timeline::before, .timeline::after { left: 61px; }
+      .timeline-year::after { right: -20px; }
+      .timeline.visible .timeline-item:last-child .timeline-year::before { right: -23px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .timeline::after { transition: none; height: calc(100% - 16px); }
+      .timeline-item { opacity: 1; transform: none; transition: none; }
+      .timeline-year::after { transform: scale(1) !important; transition: none !important; }
+      .timeline-item:last-child .timeline-year::before { animation: none !important; }
+    }
 
-    .value-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 40px; }
-    .value-card { background: var(--white); border-radius: var(--radius-lg); padding: 28px; border: 1.5px solid #e5e7eb; }
-    .value-card .icon { width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, #fff1ea, #ffe0d0); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
-    .value-card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
-    .value-card p { color: var(--gray); line-height: 1.65; font-size: 0.93rem; }
+    /* Four Non-Negotiables — premium, floating, numbered */
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      margin-top: 50px;
+    }
+    @media (max-width: 1024px) { .value-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px)  { .value-grid { grid-template-columns: 1fr; } }
+
+    .value-card {
+      position: relative;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 34px 26px 28px;
+      border: 1px solid rgba(17,24,39,0.05);
+      overflow: hidden;
+      text-align: center;
+      /* Floating depth always on */
+      box-shadow: 0 6px 14px rgba(17,24,39,0.08), 0 20px 44px rgba(17,24,39,0.1);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1),
+                  box-shadow 0.4s cubic-bezier(0.16,1,0.3,1),
+                  border-color 0.25s ease;
+    }
+    .value-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 14px 28px rgba(17,24,39,0.12), 0 34px 68px rgba(17,24,39,0.18);
+      border-color: rgba(232,82,26,0.25);
+    }
+    /* Colored accent strip at the top of each card */
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--orange) 0%, #ff7a3d 100%);
+      opacity: 0.9;
+    }
+    /* Large faded step number watermark in the corner */
+    .value-card::after {
+      content: attr(data-num);
+      position: absolute;
+      top: 14px; right: 18px;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(232,82,26,0.1);
+      line-height: 1;
+      letter-spacing: -2px;
+      transition: color 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+    }
+    .value-card:hover::after {
+      color: rgba(232,82,26,0.2);
+      transform: scale(1.08);
+    }
+    .value-card h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin: 8px 0 12px;
+      color: var(--dark);
+      letter-spacing: -0.2px;
+      text-align: center;
+    }
+    .value-card p {
+      color: var(--gray);
+      line-height: 1.65;
+      font-size: 0.92rem;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -175,23 +338,19 @@
           <p class="section-subtitle" style="margin:14px auto 0;">The principles we run the company on — and why homeowners keep referring us.</p>
         </div>
         <div class="value-grid">
-          <div class="value-card">
-            <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="var(--orange)"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3z"/></svg></div>
+          <div class="value-card" data-num="01">
             <h3>No Guessing</h3>
             <p>Every inspection uses hydrophones, pressure testing, and dye tracing. If we say where your leak is, we can show you on the spot.</p>
           </div>
-          <div class="value-card">
-            <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div>
+          <div class="value-card" data-num="02">
             <h3>No Upselling</h3>
             <p>If you don't need a repair, we'll tell you. If a $20 gasket fixes it, we won't quote $2,000 of replumbing. We'd rather earn a referral than a margin.</p>
           </div>
-          <div class="value-card">
-            <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="var(--orange)"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 14H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V7h12v2z"/></svg></div>
+          <div class="value-card" data-num="03">
             <h3>Written Everything</h3>
             <p>Every leak location, every repair estimate — in writing. No verbal quotes, no moving targets. Our reports hold up in escrow inspections.</p>
           </div>
-          <div class="value-card">
-            <div class="icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="var(--orange)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+          <div class="value-card" data-num="04">
             <h3>Real Guarantee</h3>
             <p>If we can't find your leak, you pay $0. All repairs carry a 90-day warranty. We come back free if anything we fixed fails inside the warranty window.</p>
           </div>
@@ -288,6 +447,6 @@
   <a href="tel:+18188580484" class="floating-call" aria-label="Call us now">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
   </a>
-  <script src="js/main.js?v=10"></script>
+  <script src="js/main.js?v=24"></script>
 </body>
 </html>

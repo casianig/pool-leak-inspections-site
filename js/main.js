@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.fade-in, .reveal').forEach(el => revealObserver.observe(el));
 
-  /* --- How It Works animated steps --- */
+  /* --- How It Works animated steps (legacy) --- */
   const stepsWrapper = document.querySelector('.steps-wrapper');
   if (stepsWrapper) {
     new IntersectionObserver(function(entries) {
@@ -106,6 +106,42 @@ document.addEventListener('DOMContentLoaded', () => {
         stepsWrapper.classList.add('in-view');
       }
     }, { threshold: 0.25 }).observe(stepsWrapper);
+  }
+
+  /* --- How It Works — new process cards reveal --- */
+  const processSection = document.querySelector('.how-it-works');
+  if (processSection) {
+    new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        processSection.classList.add('visible');
+      }
+    }, { threshold: 0.2 }).observe(processSection);
+  }
+
+  /* --- Timeline scroll reveal (about page) --- */
+  const timeline = document.querySelector('.timeline');
+  if (timeline) {
+    new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) {
+        timeline.classList.add('visible');
+      }
+    }, { threshold: 0.15, rootMargin: '0px 0px -80px 0px' }).observe(timeline);
+  }
+
+  /* --- Global section scroll reveal — cascading content entrance --- */
+  const sectionReveals = document.querySelectorAll('.section-reveal');
+  if (sectionReveals.length) {
+    const sectionRevealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          sectionRevealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    sectionReveals.forEach(function(section) {
+      sectionRevealObserver.observe(section);
+    });
   }
 
   /* --- Number counter animation --- */
