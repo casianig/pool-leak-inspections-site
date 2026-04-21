@@ -44,6 +44,19 @@ ul { list-style: none; }
 .text-blue  { color: var(--blue); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
 
+/* Responsive 2-column utility — replaces inline 1fr 1fr grids so they stack on mobile */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.two-col--top { align-items: start; }
+@media (max-width: 900px) {
+  .two-col { grid-template-columns: 1fr; gap: 36px; }
+  .two-col .two-col-img-first { order: -1; } /* allow swapping image above text on small screens */
+}
+
 .badge {
   display: inline-block;
   background: var(--orange);

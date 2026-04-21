@@ -23,11 +23,12 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=24" />
+  <link rel="stylesheet" href="css/style.css?v=25" />
 
   <!-- Bucket-test animated explainer styles -->
   <style>
     .bt-stage { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: var(--radius-lg); overflow: hidden; background: linear-gradient(135deg, #0a1a34 0%, #1B4B8A 55%, #0a1a34 100%); box-shadow: var(--shadow-lg); color: #fff; }
+    @media (max-width: 700px) { .bt-stage { aspect-ratio: 4/5; } }
     .bt-scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: clamp(18px, 4vw, 36px); opacity: 0; pointer-events: none; transition: opacity 0.45s ease; }
     .bt-scene.active { opacity: 1; pointer-events: auto; }
     .bt-inner { text-align: center; max-width: 100%; width: 100%; }
@@ -155,7 +156,7 @@
     <!-- Intro -->
     <section class="section" style="background:var(--white);">
       <div class="container">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+        <div class="two-col">
           <div>
             <span class="badge">DIY Guide</span>
             <h2 class="section-title" style="margin:14px 0 18px;">Evaporation vs. a Real <span>Leak</span></h2>
@@ -382,7 +383,7 @@
     <!-- Signs of a leak -->
     <section class="section" style="background:var(--white);">
       <div class="container">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+        <div class="two-col two-col--top">
           <div>
             <span class="badge">Warning Signs</span>
             <h2 class="section-title" style="margin:14px 0 18px;">Other Signs Your Pool <span>Is Leaking</span></h2>
@@ -520,7 +521,7 @@
   <a href="tel:+18188580484" class="floating-call" aria-label="Call us now">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
   </a>
-  <script src="js/main.js?v=24"></script>
+  <script src="js/main.js?v=25"></script>
 
   <!-- Bucket-test animated player -->
   <script>
