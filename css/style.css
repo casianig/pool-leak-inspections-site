@@ -1751,7 +1751,12 @@ textarea { resize: vertical; min-height: 120px; }
   .header-phone { display: none; }
   .hamburger { display: flex; }
   .hero { min-height: auto; }
-  .hero-content { margin-left: 0; padding: 0; }
+  /* Center hero content over the photo on mobile */
+  .hero-content { margin-left: 0; padding: 0; text-align: center; }
+  .hero-content .hero-eyebrow { margin-left: auto; margin-right: auto; }
+  .hero-content .hero-sub { margin-left: auto; margin-right: auto; }
+  .hero-content .hero-actions { justify-content: center; }
+  .hero-content .hero-guarantee { margin-left: auto; margin-right: auto; }
   .pricing-grid, .services-grid, .testimonials-grid { grid-template-columns: 1fr; }
   .steps-grid { grid-template-columns: 1fr; }
   .step-arrow { display: none; }
