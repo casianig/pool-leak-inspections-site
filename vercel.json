@@ -48,6 +48,7 @@
     { "source": "/services", "destination": "/services.html" },
     { "source": "/locations", "destination": "/locations.html" },
     { "source": "/gallery", "destination": "/gallery.html" },
+    { "source": "/faq", "destination": "/faq.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/testimonials", "destination": "/testimonials.html" },
     { "source": "/bucket-test", "destination": "/bucket-test.html" },
