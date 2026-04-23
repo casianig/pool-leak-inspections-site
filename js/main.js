@@ -29,13 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* --- Sticky Header Shadow --- */
+  /* --- Sticky Header: add .scrolled class for enhanced shadow after scroll --- */
   const header = document.querySelector('.site-header');
   if (header) {
     window.addEventListener('scroll', () => {
-      header.style.boxShadow = window.scrollY > 10
-        ? '0 2px 20px rgba(0,0,0,0.12)'
-        : '0 1px 3px rgba(0,0,0,0.1)';
+      header.classList.toggle('scrolled', window.scrollY > 10);
     }, { passive: true });
   }
 
