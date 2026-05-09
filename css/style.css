@@ -953,6 +953,19 @@ textarea { resize: vertical; min-height: 120px; }
   .hero-actions .btn-lg { padding: 14px 24px; font-size: 1rem; }
   .trust-bar-inner { gap: 20px; }
   .locations-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Collapse inline 2-column grids on mobile (services, bucket-test, about, locations detail rows) */
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Center the homepage hero content on mobile (titles, subtitle, badges, CTAs) */
+  .hero-content { text-align: center; }
+  .hero-content .hero-eyebrow,
+  .hero-content .hero-guarantee { display: inline-flex; }
+  .hero-actions { justify-content: center; }
 }
 
 @media (max-width: 480px) {

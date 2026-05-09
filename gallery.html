@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pool Leak Detection Gallery — Before & After | Pool Leak Inspections</title>
-  <meta name="description" content="Before & after examples of pool leak detection and repair work in Los Angeles and Ventura County. Real jobs, real results, real guarantees." />
+  <title>Pool Leak Detection Gallery — Real Jobs | Pool Leak Inspections</title>
+  <meta name="description" content="Real pool leak detection and repair jobs in Los Angeles and Ventura County. Click any job to see every photo from the inspection and the repair." />
   <link rel="canonical" href="https://www.poolleakinspections.com/gallery" />
 
   <meta property="og:title" content="Pool Leak Detection Gallery | Pool Leak Inspections" />
-  <meta property="og:description" content="Before & after examples of pool leak detection and repair work across LA & Ventura County." />
+  <meta property="og:description" content="Real jobs, real photos. Click any case to see the full photo set from the inspection and the repair." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.poolleakinspections.com/gallery" />
   <meta property="og:image" content="https://www.poolleakinspections.com/images/og-home.jpg" />
   <meta property="og:site_name" content="Pool Leak Inspections" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Pool Leak Detection Gallery | Pool Leak Inspections" />
-  <meta name="twitter:description" content="Before & after examples of pool leak detection and repair across LA." />
+  <meta name="twitter:description" content="Real pool leak detection and repair jobs across LA & Ventura County." />
   <meta name="twitter:image" content="https://www.poolleakinspections.com/images/og-home.jpg" />
 
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=6" />
+  <link rel="stylesheet" href="css/style.css?v=8" />
 
   <script type="application/ld+json">
   {
@@ -38,31 +38,71 @@
 
   <style>
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; margin-top: 44px; }
-    .case-card { background: var(--white); border-radius: var(--radius-lg); overflow: hidden; border: 1.5px solid #e5e7eb; box-shadow: var(--shadow-sm); transition: transform var(--transition), box-shadow var(--transition); display: flex; flex-direction: column; }
+
+    .case-card { position: relative; background: var(--white); border-radius: var(--radius-lg); overflow: hidden; border: 1.5px solid #e5e7eb; box-shadow: var(--shadow-sm); transition: transform var(--transition), box-shadow var(--transition); display: flex; flex-direction: column; cursor: pointer; }
     .case-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-    .case-ba { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #111; }
-    .case-ba figure { position: relative; margin: 0; aspect-ratio: 4/3; overflow: hidden; }
-    .case-ba img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .case-ba figcaption { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.75); color: #fff; font-size: 0.72rem; font-weight: 800; letter-spacing: 1px; padding: 4px 10px; border-radius: 50px; text-transform: uppercase; }
-    .case-ba figure.after figcaption { background: var(--orange); }
+    .case-card:hover .case-cover img { transform: scale(1.04); }
+    .case-card:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+
+    .case-cover { position: relative; aspect-ratio: 4/3; overflow: hidden; background: #111; }
+    .case-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .photo-count { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.78); color: #fff; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.5px; padding: 6px 12px; border-radius: 50px; display: inline-flex; align-items: center; gap: 6px; }
+    .photo-count svg { width: 14px; height: 14px; }
+    .view-photos-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 50%); display: flex; align-items: flex-end; justify-content: flex-start; padding: 16px; opacity: 0; transition: opacity var(--transition); pointer-events: none; }
+    .view-photos-overlay span { background: var(--orange); color: #fff; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.5px; padding: 8px 14px; border-radius: 50px; text-transform: uppercase; }
+    .case-card:hover .view-photos-overlay { opacity: 1; }
+
     .case-body { padding: 22px 22px 24px; }
-    .case-body .city-chip { display: inline-block; background: #eef2ff; color: var(--blue); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 10px; border-radius: 50px; margin-bottom: 10px; }
-    .case-body h3 { font-size: 1.1rem; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
-    .case-body p { color: var(--gray); font-size: 0.92rem; line-height: 1.65; margin-bottom: 12px; }
+    .case-body h3 { font-size: 1.1rem; font-weight: 800; color: var(--dark); margin-bottom: 10px; line-height: 1.35; }
     .case-meta { display: flex; gap: 14px; padding-top: 14px; border-top: 1px solid #e5e7eb; font-size: 0.8rem; color: var(--gray); }
-    .case-meta strong { color: var(--dark); display: block; }
+    .case-meta strong { color: var(--dark); display: block; margin-bottom: 2px; }
 
-    .placeholder-note { max-width: 780px; margin: 0 auto; padding: 18px 22px; background: #fff8ee; border: 1px solid #ffe0b4; border-radius: 12px; font-size: 0.9rem; color: #7a4a00; line-height: 1.6; }
+    /* Modal */
+    .photo-modal { position: fixed; inset: 0; background: rgba(8, 12, 22, 0.92); z-index: 9999; display: none; overflow-y: auto; padding: 20px; }
+    .photo-modal.is-open { display: block; }
+    .photo-modal-inner { max-width: 1200px; margin: 0 auto; background: var(--white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+    .photo-modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 24px 28px 20px; border-bottom: 1px solid #e5e7eb; position: sticky; top: 0; background: #fff; z-index: 2; }
+    .photo-modal-head h3 { font-size: 1.3rem; font-weight: 800; color: var(--dark); margin-bottom: 6px; }
+    .photo-modal-head p { color: var(--gray); font-size: 0.92rem; }
+    .photo-modal-close { background: var(--gray-light); border: none; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background var(--transition); }
+    .photo-modal-close:hover { background: var(--orange); color: #fff; }
+    .photo-modal-close svg { width: 20px; height: 20px; }
+    .photo-modal-body { padding: 24px 28px 28px; }
+    .photo-modal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .photo-modal-grid figure { margin: 0; aspect-ratio: 1; overflow: hidden; border-radius: 10px; cursor: pointer; background: #f3f4f6; transition: transform var(--transition); }
+    .photo-modal-grid figure:hover { transform: scale(1.03); }
+    .photo-modal-grid img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-    .quote-block { background: var(--white); padding: 32px; border-radius: var(--radius-lg); border-left: 4px solid var(--orange); box-shadow: var(--shadow-sm); max-width: 720px; margin: 40px auto 0; }
-    .quote-block p { font-size: 1.05rem; color: var(--dark); line-height: 1.7; margin-bottom: 14px; font-style: italic; }
-    .quote-author { color: var(--gray); font-size: 0.9rem; font-weight: 600; }
+    /* Lightbox layer (single full-size photo) */
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 30px; }
+    .lightbox.is-open { display: flex; }
+    .lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+    .lightbox-close { position: absolute; top: 22px; right: 22px; background: rgba(255,255,255,0.12); border: none; color: #fff; width: 46px; height: 46px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background var(--transition); }
+    .lightbox-close:hover { background: var(--orange); }
+    .lightbox-close svg { width: 22px; height: 22px; }
+    .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.12); border: none; color: #fff; width: 52px; height: 52px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background var(--transition); }
+    .lightbox-nav:hover { background: var(--orange); }
+    .lightbox-nav.prev { left: 22px; }
+    .lightbox-nav.next { right: 22px; }
+    .lightbox-nav svg { width: 24px; height: 24px; }
+    .lightbox-counter { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 0.9rem; font-weight: 600; background: rgba(0,0,0,0.45); padding: 6px 14px; border-radius: 50px; }
+
+    body.modal-open { overflow: hidden; }
+
+    @media (max-width: 600px) {
+      .photo-modal { padding: 0; }
+      .photo-modal-inner { border-radius: 0; min-height: 100vh; }
+      .photo-modal-head { padding: 20px; }
+      .photo-modal-body { padding: 20px; }
+      .photo-modal-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .lightbox-nav { width: 44px; height: 44px; }
+    }
   </style>
 </head>
 <body>
 
   <div class="announcement-bar">
-    Inspections Starting from $195! &nbsp;|&nbsp; If we can't find your leak, the inspection is <strong>FREE!</strong>
+    Inspections Starting from $225! &nbsp;|&nbsp; If we can't find your leak, the inspection is <strong>FREE!</strong>
     <a href="tel:+18188580484">Call Now: (818) 858-0484</a>
   </div>
 
@@ -105,8 +145,8 @@
     <section class="page-hero">
       <div class="container">
         <nav class="breadcrumb"><a href="index.html">Home</a><span>›</span><span>Gallery</span></nav>
-        <h1>Before &amp; After <span>Gallery</span></h1>
-        <p>Real jobs from Los Angeles and Ventura County. The leaks we found, the repairs we made, and how the pools look when we're done.</p>
+        <h1>Real Jobs, Real <span>Photos</span></h1>
+        <p>Every job gets documented. Click any case below to see the full photo set — from the inspection to the finished repair.</p>
       </div>
     </section>
 
@@ -118,145 +158,8 @@
           <p class="section-subtitle" style="margin:14px auto 0;">Every pool is different — but the pattern is the same. Find the leak, show the homeowner, fix it, warranty the work.</p>
         </div>
 
-        <div class="gallery-grid">
-
-          <!-- Case 1 -->
-          <div class="case-card reveal" data-delay="1">
-            <div class="case-ba">
-              <figure>
-                <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&q=75" alt="Pool before plaster crack repair — Encino" loading="lazy" />
-                <figcaption>Before</figcaption>
-              </figure>
-              <figure class="after">
-                <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=75" alt="Pool after plaster repair — Encino" loading="lazy" />
-                <figcaption>After</figcaption>
-              </figure>
-            </div>
-            <div class="case-body">
-              <span class="city-chip">Encino • 91436</span>
-              <h3>Hairline Plaster Crack — 20,000 Gallons/Year Saved</h3>
-              <div class="case-meta">
-                <div><strong>Method</strong>Dye + Hydrophone</div>
-                <div><strong>Fix time</strong>1 day</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Case 2 -->
-          <div class="case-card reveal" data-delay="2">
-            <div class="case-ba">
-              <figure>
-                <img src="https://images.unsplash.com/photo-1575429198097-0414ec08e8cd?w=800&q=75" alt="Pool skimmer issue — Sherman Oaks" loading="lazy" />
-                <figcaption>Before</figcaption>
-              </figure>
-              <figure class="after">
-                <img src="https://images.unsplash.com/photo-1540592611408-f9a7c39d7b19?w=800&q=75" alt="Pool after skimmer replacement — Sherman Oaks" loading="lazy" />
-                <figcaption>After</figcaption>
-              </figure>
-            </div>
-            <div class="case-body">
-              <span class="city-chip">Sherman Oaks • 91403</span>
-              <h3>Split Skimmer Throat — Classic Valley Pool Issue</h3>
-              <div class="case-meta">
-                <div><strong>Method</strong>Pressure Test</div>
-                <div><strong>Fix time</strong>1 day</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Case 3 -->
-          <div class="case-card reveal" data-delay="3">
-            <div class="case-ba">
-              <figure>
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=75" alt="Pool equipment area before pipe repair — Thousand Oaks" loading="lazy" />
-                <figcaption>Before</figcaption>
-              </figure>
-              <figure class="after">
-                <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=800&q=75" alt="Clean pool after underground pipe repair — Thousand Oaks" loading="lazy" />
-                <figcaption>After</figcaption>
-              </figure>
-            </div>
-            <div class="case-body">
-              <span class="city-chip">Thousand Oaks • 91360</span>
-              <h3>Buried Return-Line — Found Without Breaking the Deck</h3>
-              <div class="case-meta">
-                <div><strong>Method</strong>Hydrophone</div>
-                <div><strong>Fix time</strong>2 days</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Case 4 -->
-          <div class="case-card reveal" data-delay="1">
-            <div class="case-ba">
-              <figure>
-                <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&q=75" alt="Fountain before repair — Beverly Hills" loading="lazy" />
-                <figcaption>Before</figcaption>
-              </figure>
-              <figure class="after">
-                <img src="https://images.unsplash.com/photo-1562239487-294e3f29d4fe?w=800&q=75" alt="Fountain restored — Beverly Hills" loading="lazy" />
-                <figcaption>After</figcaption>
-              </figure>
-            </div>
-            <div class="case-body">
-              <span class="city-chip">Beverly Hills • 90210</span>
-              <h3>Fountain + Pool System — Two Leaks, One Visit</h3>
-              <div class="case-meta">
-                <div><strong>Method</strong>5-Point Analysis</div>
-                <div><strong>Fix time</strong>2 days</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Case 5 -->
-          <div class="case-card reveal" data-delay="2">
-            <div class="case-ba">
-              <figure>
-                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=75" alt="Spa before jet repair — Calabasas" loading="lazy" />
-                <figcaption>Before</figcaption>
-              </figure>
-              <figure class="after">
-                <img src="https://images.unsplash.com/photo-1519981593452-666cf05569a9?w=800&q=75" alt="Spa after repair — Calabasas" loading="lazy" />
-                <figcaption>After</figcaption>
-              </figure>
-            </div>
-            <div class="case-body">
-              <span class="city-chip">Calabasas • 91302</span>
-              <h3>Standalone Spa — Jet Return Leaking</h3>
-              <div class="case-meta">
-                <div><strong>Method</strong>Pressure + Observation</div>
-                <div><strong>Fix time</strong>Same day</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Case 6 -->
-          <div class="case-card reveal" data-delay="3">
-            <div class="case-ba">
-              <figure>
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=75" alt="Pre-purchase pool inspection — Pacific Palisades" loading="lazy" />
-                <figcaption>Before</figcaption>
-              </figure>
-              <figure class="after">
-                <img src="https://images.unsplash.com/photo-1604014237744-0dcad06b1b1a?w=800&q=75" alt="Pool passed inspection — Pacific Palisades" loading="lazy" />
-                <figcaption>After</figcaption>
-              </figure>
-            </div>
-            <div class="case-body">
-              <span class="city-chip">Pacific Palisades • 90272</span>
-              <h3>Pre-Purchase Inspection — Saved the Deal</h3>
-              <div class="case-meta">
-                <div><strong>Method</strong>Pre-Sale 5-Point</div>
-                <div><strong>Fix time</strong>Same day</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="quote-block">
-          <p>"They showed up, ran the test, pointed at the exact spot on my pool where the leak was, wrote me a repair estimate, and walked out in under two hours. Other companies wanted to cut into the decking to 'look around.' These guys are the real deal."</p>
-          <div class="quote-author">— John P., Los Angeles</div>
+        <div class="gallery-grid" id="galleryGrid">
+          <!-- Cards rendered by JS from JOBS data below -->
         </div>
       </div>
     </section>
@@ -273,6 +176,39 @@
     </section>
 
   </main>
+
+  <!-- Photo grid modal -->
+  <div class="photo-modal" id="photoModal" role="dialog" aria-modal="true" aria-labelledby="photoModalTitle" aria-hidden="true">
+    <div class="photo-modal-inner">
+      <div class="photo-modal-head">
+        <div>
+          <h3 id="photoModalTitle">Job Title</h3>
+          <p id="photoModalSubtitle">Description</p>
+        </div>
+        <button class="photo-modal-close" id="photoModalClose" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="photo-modal-body">
+        <div class="photo-modal-grid" id="photoModalGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single-image lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close photo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Previous photo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="lightbox-nav next" id="lightboxNext" aria-label="Next photo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <img id="lightboxImage" alt="" />
+    <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
+  </div>
 
   <footer class="site-footer">
     <div class="container">
@@ -318,5 +254,277 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.21 2.2z"/></svg>
   </a>
   <script src="js/main.js?v=6"></script>
+
+  <script>
+    // Job data: 135 photos across 10 documented jobs.
+    const JOBS = [
+      {
+        id: 'job-01',
+        title: 'Spa Beam Foam-Seal — Terra-Cotta Coping',
+        summary: 'Cracked spa beam losing water under the brick coping. Sealed with closed-cell expansion foam and re-set the cap.',
+        method: 'Static + Dye',
+        fixTime: '1 day',
+        photoCount: 19,
+        cover: 4
+      },
+      {
+        id: 'job-02',
+        title: 'Stamped Concrete Deck — Leak Localized & Sealed',
+        summary: 'Wet patch tracking back from the deck. Source isolated to a slab joint above the return line, sealed without breaking decking.',
+        method: 'Sonar Technology',
+        fixTime: '1 day',
+        photoCount: 13,
+        cover: 1
+      },
+      {
+        id: 'job-03',
+        title: 'Pebble Pool Shell Crack — Epoxy Injection',
+        summary: 'Hairline structural crack in the pebble shell. Marked, ported, and pressure-injected with structural epoxy.',
+        method: 'Pressure Test',
+        fixTime: '2 days',
+        photoCount: 18,
+        cover: 1
+      },
+      {
+        id: 'job-04',
+        title: 'Round Spa Plumbing — Manifold Pulled & Replaced',
+        summary: 'Suction-side leak under the spa skirt. Pulled the PVC manifold, replaced the failed elbow set, repressurized clean.',
+        method: 'Pressure Test',
+        fixTime: '1 day',
+        photoCount: 15,
+        cover: 1
+      },
+      {
+        id: 'job-05',
+        title: 'Buried Return-Line — Found Without Breaking the Deck',
+        summary: 'Underground leak on the return line. Sonar Technology pinpointed the spot, hand-dug to a copper stub and replaced the joint.',
+        method: 'Sonar Technology',
+        fixTime: '2 days',
+        photoCount: 9,
+        cover: 1
+      },
+      {
+        id: 'job-06',
+        title: 'Concrete Deck Section — Cut Out & Patched',
+        summary: 'Failed slab over an active leak. Cut out the affected section, repaired the line, poured and finished a clean patch.',
+        method: '5-Point Analysis',
+        fixTime: '2 days',
+        photoCount: 18,
+        cover: 1
+      },
+      {
+        id: 'job-07',
+        title: 'Equipment Pad — Pump & Filter Plumbing Rebuild',
+        summary: 'Multiple weeping joints and aging unions on the equipment pad. Full re-plumb, new valves, leak-tested before refill.',
+        method: 'Pressure Test',
+        fixTime: '1 day',
+        photoCount: 13,
+        cover: 1
+      },
+      {
+        id: 'job-08',
+        title: 'Buried Plumbing Reroute — New PVC Manifold',
+        summary: 'Brittle old plumbing buried below the deck. Excavated, abandoned the failed run, and rerouted with new schedule-40 PVC.',
+        method: 'Pressure + Visual',
+        fixTime: '2 days',
+        photoCount: 8,
+        cover: 1
+      },
+      {
+        id: 'job-09',
+        title: 'Faux-Rock Pool Deck — Crack Repair & Reseal',
+        summary: 'Cracked decking around a natural-stone pool. Tracked, opened, sealed, and color-matched the patch into the existing finish.',
+        method: 'Visual + Dye',
+        fixTime: '1 day',
+        photoCount: 10,
+        cover: 1
+      },
+      {
+        id: 'job-10',
+        title: 'Main-Line Excavation — Deep Dig & Pipe Repair',
+        summary: 'Deep main-line failure under the planter. Excavated to the joint, replaced the run, backfilled and restored the area.',
+        method: 'Pressure Test',
+        fixTime: '3 days',
+        photoCount: 12,
+        cover: 1
+      },
+      {
+        id: 'job-11',
+        title: 'Skimmer Plumbing Failure — Diagnosed & Re-Plumbed',
+        summary: 'Cracked PVC under the deck cleanout was bleeding water from the skimmer line. Pulled the cap, traced the break, excavated below the deck and rebuilt the run with new schedule-40 PVC.',
+        method: 'Visual + Pressure Test',
+        fixTime: '2 days',
+        photoCount: 53,
+        cover: 1
+      },
+      {
+        id: 'job-12',
+        title: 'Faux-Rock Pool Feature — Buried PVC Elbow Repair',
+        summary: 'Natural-stone pool with a buried elbow leaking under the rockwork. Located the failed fitting, cut it out and replaced with a new PVC elbow without disturbing the rock feature.',
+        method: 'Sonar Technology',
+        fixTime: '1 day',
+        photoCount: 19,
+        cover: 1
+      },
+      {
+        id: 'job-13',
+        title: 'Full Plaster Resurface — Pool Drained & Refinished',
+        summary: 'After leak repair, the pool was drained, prepped and resurfaced by our crew. Brick coping and waterline tile preserved.',
+        method: 'Resurface + Reseal',
+        fixTime: '3 days',
+        photoCount: 6,
+        cover: 1
+      },
+      {
+        id: 'job-14',
+        title: 'Underwater Dive Inspection — In-Water Leak Search',
+        summary: 'Diver in the pool performing a visual leak search around fittings, lights and the main drain. Used to confirm the leak source before any structural work.',
+        method: 'Dive + Dye',
+        fixTime: 'Same day',
+        photoCount: 7,
+        cover: 1
+      }
+    ];
+
+    // Build photo URL list for a job (sorted, indexed 01..N)
+    function photosFor(job) {
+      const arr = [];
+      for (let i = 1; i <= job.photoCount; i++) {
+        const idx = String(i).padStart(2, '0');
+        arr.push(`images/jobs/${job.id}/${job.id}-${idx}.jpg`);
+      }
+      return arr;
+    }
+
+    // Render gallery cards
+    const grid = document.getElementById('galleryGrid');
+    JOBS.forEach((job, jobIndex) => {
+      const photos = photosFor(job);
+      const coverIdx = Math.min(Math.max(job.cover || 1, 1), photos.length) - 1;
+      const card = document.createElement('article');
+      card.className = 'case-card reveal';
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', `View ${job.photoCount} photos from ${job.title}`);
+      card.dataset.jobIndex = jobIndex;
+      card.innerHTML = `
+        <div class="case-cover">
+          <img src="${photos[coverIdx]}" alt="${job.title}" loading="lazy" />
+          <span class="photo-count">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            ${job.photoCount} photos
+          </span>
+          <div class="view-photos-overlay"><span>View Photos →</span></div>
+        </div>
+        <div class="case-body">
+          <h3>${job.title}</h3>
+          <p style="color:var(--gray);font-size:0.92rem;line-height:1.6;margin-bottom:12px;">${job.summary}</p>
+          <div class="case-meta">
+            <div><strong>Method</strong>${job.method}</div>
+            <div><strong>Fix time</strong>${job.fixTime}</div>
+          </div>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    // Modal logic
+    const modal = document.getElementById('photoModal');
+    const modalTitle = document.getElementById('photoModalTitle');
+    const modalSubtitle = document.getElementById('photoModalSubtitle');
+    const modalGrid = document.getElementById('photoModalGrid');
+    const modalClose = document.getElementById('photoModalClose');
+
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+
+    let currentPhotos = [];
+    let currentIndex = 0;
+
+    function openModalForJob(jobIndex) {
+      const job = JOBS[jobIndex];
+      currentPhotos = photosFor(job);
+      modalTitle.textContent = job.title;
+      modalSubtitle.textContent = `${job.photoCount} photos · ${job.method} · Fix time: ${job.fixTime}`;
+      modalGrid.innerHTML = '';
+      currentPhotos.forEach((src, i) => {
+        const fig = document.createElement('figure');
+        fig.innerHTML = `<img src="${src}" alt="${job.title} photo ${i + 1}" loading="lazy" />`;
+        fig.addEventListener('click', () => openLightbox(i));
+        modalGrid.appendChild(fig);
+      });
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      modal.scrollTop = 0;
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      if (!lightbox.classList.contains('is-open')) document.body.classList.remove('modal-open');
+    }
+
+    function openLightbox(index) {
+      currentIndex = index;
+      updateLightbox();
+      lightbox.classList.add('is-open');
+      document.body.classList.add('modal-open');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      if (!modal.classList.contains('is-open')) document.body.classList.remove('modal-open');
+    }
+
+    function updateLightbox() {
+      lightboxImage.src = currentPhotos[currentIndex];
+      lightboxImage.alt = `Photo ${currentIndex + 1} of ${currentPhotos.length}`;
+      lightboxCounter.textContent = `${currentIndex + 1} / ${currentPhotos.length}`;
+    }
+
+    function nextPhoto() {
+      currentIndex = (currentIndex + 1) % currentPhotos.length;
+      updateLightbox();
+    }
+    function prevPhoto() {
+      currentIndex = (currentIndex - 1 + currentPhotos.length) % currentPhotos.length;
+      updateLightbox();
+    }
+
+    // Card click → open modal
+    grid.addEventListener('click', e => {
+      const card = e.target.closest('.case-card');
+      if (!card) return;
+      openModalForJob(parseInt(card.dataset.jobIndex, 10));
+    });
+    grid.addEventListener('keydown', e => {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('case-card')) {
+        e.preventDefault();
+        openModalForJob(parseInt(e.target.dataset.jobIndex, 10));
+      }
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', prevPhoto);
+    lightboxNext.addEventListener('click', nextPhoto);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+    document.addEventListener('keydown', e => {
+      if (lightbox.classList.contains('is-open')) {
+        if (e.key === 'Escape') closeLightbox();
+        else if (e.key === 'ArrowRight') nextPhoto();
+        else if (e.key === 'ArrowLeft') prevPhoto();
+      } else if (modal.classList.contains('is-open')) {
+        if (e.key === 'Escape') closeModal();
+      }
+    });
+  </script>
 </body>
 </html>

@@ -8,7 +8,7 @@ You asked whether I could create a video. Here's the honest answer and a working
 Plays a 6-scene, ~60-second animation on your site:
 1. Brand intro + tagline
 2. The problem (water loss, cost)
-3. Three detection methods (hydrophone / pressure / dye)
+3. Three detection methods (sonar technology / pressure / dye)
 4. Trust signals (licensed, insured, since 2004)
 5. Guarantee card ("No find, no fee")
 6. Animated CTA with tap-to-call phone number
@@ -58,7 +58,7 @@ Tradeoff: output looks "template-y." For a local trades business, that's actuall
 
 ### AI video tools (if you want to play)
 
-If you want AI-generated shots for hero B-roll (technician by pool, dye swirling, hydrophone in water):
+If you want AI-generated shots for hero B-roll (technician by pool, dye swirling, sonar technology in water):
 - **Google Veo 3** via Gemini — best realism for water shots, limited daily free generations
 - **Kling 2.0** — ~6 free generations/day
 - **Luma Dream Machine** — ~30 free/month
@@ -74,7 +74,7 @@ Hand this directly to any tool. Voiceover cadence: ~150 words/min.
 
 ### SCENE 1 — Brand intro (0:00–0:08)
 - **Visual:** Logo fades in centered over soft out-of-focus pool water. Tagline appears.
-- **On-screen text:** [Logo] + "If we can't find your leak — it's FREE."
+- **On-screen text:** [Logo] + "If we don't find your leak — it's FREE."
 - **VO:** "Losing water? We'll find your leak — or it's free."
 - **Music:** Confident, mid-tempo instrumental starts.
 
@@ -82,10 +82,10 @@ Hand this directly to any tool. Voiceover cadence: ~150 words/min.
 - **Visual:** Close-up of pool water level showing a drop. Homeowner looking concerned at equipment pad. *(Pexels search: "pool equipment", "pool water surface")*
 - **VO:** "A hidden leak can waste thousands of gallons — and hundreds of dollars — every month. But most leaks are invisible to the eye."
 
-### SCENE 3A — Hydrophones (0:18–0:26)
+### SCENE 3A — Sonar Technology (0:18–0:26)
 - **Visual:** Technician lowering electronic listening device into pool. Animated sound-wave overlay.
 - **Lower-third:** "ELECTRONIC LEAK DETECTION"
-- **VO:** "We use professional hydrophones to listen for leaks underwater."
+- **VO:** "We use professional sonar technology to listen for leaks underwater."
 
 ### SCENE 3B — Pressure testing (0:26–0:35)
 - **Visual:** Hands on plumbing manifold, pressure gauge in frame.
@@ -104,7 +104,7 @@ Hand this directly to any tool. Voiceover cadence: ~150 words/min.
 
 ### SCENE 5 — Guarantee (0:58–1:05)
 - **Visual:** Bold text card, brand colors.
-- **On-screen text:** "If we can't find your leak — it's FREE."
+- **On-screen text:** "If we don't find your leak — it's FREE."
 - **VO:** "And our promise is simple: if we can't find your leak, you don't pay."
 
 ### SCENE 6 — CTA (1:05–1:15)
@@ -144,7 +144,7 @@ Hand this directly to any tool. Voiceover cadence: ~150 words/min.
 4. **Add logo** as overlay in scene 1 and scene 6 corner.
 5. **Voiceover:** paste script into ElevenLabs → pick a voice → download MP3 → drop into Canva timeline.
 6. **Music:** YouTube Audio Library → "Attribution not required" → mid-tempo corporate → drop in and reduce volume to ~20% under VO.
-7. **Lower-thirds**: Canva text elements for "HYDROPHONE / PRESSURE TESTING / DYE TESTING" and the trust chips.
+7. **Lower-thirds**: Canva text elements for "SONAR TECHNOLOGY / PRESSURE TESTING / DYE TESTING" and the trust chips.
 8. **Export** as MP4 1080p.
 9. **Upload to YouTube** (public, unlisted, or just embed). Copy the iframe code.
 10. **Embed on the homepage** inside the hero section using:
